@@ -14,13 +14,22 @@ function fetchLyrics(artistID) {
         body: JSON.stringify({artist_id: artistID}) //this will have to change to dynamic routing
     }) // should go to games#create ----- therefore, this should be a post request when built out
     .then(res => res.json())
-    .then(json => console.log(json)) // this should just be an integer as a length - will we populate the score denominator and the word li's/tr's using a for loop
+    .then(json =>// indexFunction(json)
+        console.log(json)
+    
+    ) // this should just be an integer as a length - will we populate the score denominator and the word li's/tr's using a for loop
 };
 
-function fetchAllArtists(){    
+function fetchAllArtists(populateArtists){    
     fetch(ARTISTS_URL)
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => populateArtists(data))
+};
+
+function fetchArtistSongs(artistId, populateSongs){    
+    fetch(`${ARTISTS_URL}/${artistId}`)
+    .then(res => res.json())
+    .then(artist => populateSongs(artist.songs))
 };
 
 function fetchHint() {
