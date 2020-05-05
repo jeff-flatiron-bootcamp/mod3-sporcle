@@ -67,4 +67,24 @@ body {
       grid-template-columns: 1fr 1fr 1fr 1fr;
     }
   }
+
+  .parent {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    }
+
+
+table{
+  border-collapse:collapse;
+  border:1px solid black;
+  }
   
+  table td{
+  border:1px solid black;
+  }
+
+
+    
