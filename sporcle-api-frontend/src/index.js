@@ -90,4 +90,5 @@
 
 
 
-fetchLyrics()
+fetchAllArtists()
+fetchLyrics(1)
