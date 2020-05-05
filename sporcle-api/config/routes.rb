@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  post '/games/hint', to: 'games#hint'
+  patch '/games/guess', to: 'games#guess'
   resources :games
   resources :songs
   resources :artists
