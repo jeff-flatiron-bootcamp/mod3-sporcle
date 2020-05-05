@@ -1,5 +1,6 @@
 class Game < ApplicationRecord
   belongs_to :song
+  has_many :guesses
 
   # @@key = '1a3856t83e01b171' #this needs to change for production
   # @@iv = '1s3b5bu83602s11t'

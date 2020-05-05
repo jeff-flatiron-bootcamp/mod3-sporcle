@@ -46,11 +46,14 @@ class GamesController < ApplicationController
     def guess #this is an update CRUD action, but it is more secure to leave out the id frmo the route
         game = Game.find(params[:game_id])
         #validate that guess has not already been registered - new guess table with game foreign id - need a function to check if that guess already exists
-
-        return_object = game.find_guesses(params[:guess]) #should return array of indices
-        return_object[:score] = game.update_score(return_object[:indices].length) # this is convoluted - refactor if time
-
-        render json: return_object
+        byebug
+        guess = Guess.new(word: params[:guess], game_id: game.id)
+        if guess.save
+            return_object = game.find_guesses(params[:guess]) #should return array of indices
+            return_object[:score] = game.update_score(return_object[:indices].length) # this is convoluted - refactor if time
+            render json: return_object
+        else
+            render json: {error: "You already guessed #{params[:guess]}"}
+        end
     end
-
 end

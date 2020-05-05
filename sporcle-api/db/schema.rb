@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_03_193045) do
+ActiveRecord::Schema.define(version: 2020_05_05_222527) do
 
   create_table "artists", force: :cascade do |t|
     t.string "name"
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(version: 2020_05_03_193045) do
     t.index ["song_id"], name: "index_games_on_song_id"
   end
 
+  create_table "guesses", force: :cascade do |t|
+    t.integer "game_id", null: false
+    t.string "word"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["game_id"], name: "index_guesses_on_game_id"
+  end
+
   create_table "songs", force: :cascade do |t|
     t.string "title"
     t.string "lyric"
@@ -38,5 +46,6 @@ ActiveRecord::Schema.define(version: 2020_05_03_193045) do
   end
 
   add_foreign_key "games", "songs"
+  add_foreign_key "guesses", "games"
   add_foreign_key "songs", "artists"
 end
