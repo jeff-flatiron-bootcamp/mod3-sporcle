@@ -1,6 +1,3 @@
-const BASE_URL = "http://localhost:3000"
-const ARTISTS_URL = `${BASE_URL}/artists`
-const SONG_URL = `${BASE_URL}/songs`
 let countDownMinutes = 60 * 12
 
 //countdown timer
