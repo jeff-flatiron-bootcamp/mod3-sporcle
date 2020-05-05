@@ -237,12 +237,44 @@ function buildLyricBox(){
     lyricsDiv.className = "parent"
     for(let i =0; i <lyricsCount;i++){
         let td = document.createElement("td")
-        td.id = i
-        td.innerText = i
+        td.id = "box_" + i
+        td.innerText = " "
         lyricsDiv.appendChild(td)
     }
     mainElm.appendChild(lyricsDiv)
 }
+
+// Temporary guess button
+let guess = {guess:"you",score: 2, indices: [4, 9, 17, 21, 34] }
+let correctDiv = document.createElement("div")
+let correctBtn = document.createElement("button")
+correctBtn.innerText = "testing"
+correctBtn.addEventListener("click", function(event) {
+    // console.log(guess.indices)
+    guessParse(guess);
+})
+correctDiv.appendChild(correctBtn)
+btnDiv.appendChild(correctDiv)
+
+
+//parse data from fetch into individual arrays for correct guess handler
+function guessParse(guess){
+    i=(guess.indices.length)
+    for (let i = 0; i<guess.indices.length; i++ ){
+        const array = []
+        array[0]=guess.guess
+        array[1]=(guess.indices[i] - 1)
+        correctGuessHandler(array)
+    }
+}
+
+//replace squares in lyric box with guessed words
+function correctGuessHandler(guess){
+    const location = (guess[1])
+    const guessBox = document.getElementById(`box_${location}`)
+    guessBox.innerHTML=guess[0]
+}
+
 //*************put all HTML elements together *************************************************************************************
 //call all the build
 function btnForm(){

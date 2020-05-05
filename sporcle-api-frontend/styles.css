@@ -78,6 +78,11 @@ body {
 
 
 table{
+  display: flex;
+  flex-direction: row ;
+  flex-wrap:wrap;
+  align-content:stretch;
+  flex-grow: 4;
   border-collapse:collapse;
   border:1px solid black;
   }
