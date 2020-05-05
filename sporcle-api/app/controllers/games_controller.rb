@@ -43,4 +43,17 @@ class GamesController < ApplicationController
         render json: {lyric_length: lyrics, game_id: new_game.id}
     end
 
+    def guess #this is an update CRUD action, but it is more secure to leave out the id frmo the route
+        game = Game.find(params[:game_id])
+
+        #iterate through lyric array - game.find_guesses - should return array of indices
+        #update score - game.update_score - should return new score - will need logic in case score is nil - should take in indices_array.length
+        #validate that guess has not already been registered - new guess table with game foreign id - need a function to check if that guess already exists
+
+        render json: {guess: params[:guess],
+            score: 3,
+            indices: [3, 7, 9]
+        }
+    end
+
 end

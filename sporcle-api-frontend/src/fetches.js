@@ -42,8 +42,28 @@ function fetchHint(hintNumber) {
     .then(json => console.log(json))
 }
 
-function practiceFetch() {
-    fetch(GAMES_URL, {
-    credentials: "same-origin"
-})
+function fetchWord(word) {
+    fetch(GAMES_URL + `/guess`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        },
+        body: JSON.stringify({
+            game_id: localStorage.getItem("game_id"),
+            guess: word
+        })
+    })
+    .then(res => res.json())
+    .then(json => console.log(json))
 }
+
+
+
+// For testing sessions
+
+// function practiceFetch() {
+//     fetch(GAMES_URL, {
+//     credentials: "same-origin"
+// })
+// }
