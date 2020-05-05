@@ -1,8 +1,9 @@
 class Game < ApplicationRecord
   belongs_to :song
+  has_many :guesses
 
-  @@key = '1a3856t83e01b171' #this needs to change for production
-  @@iv = '1s3b5bu83602s11t'
+  # @@key = '1a3856t83e01b171' #this needs to change for production
+  # @@iv = '1s3b5bu83602s11t'
 
   def self.generate_hint(word)
     if word.length < 3
@@ -17,30 +18,43 @@ class Game < ApplicationRecord
       hint += word[-1]
     end
   end
+  
 
-  def self.find_next_hint(guess_array) #don't need to use unless we're using sessions to transfer that data
-    i = 0
-    until guess_array[i] != i do
-        i += 1
-    end
-    return Game.find(session[:game_id]).song.lyrics.split(" ")[i]
+  def find_guesses(word)    #return indices where it is found - array of numbers - or possibly object with word and indices
+    lyrics = self.song.lyric.split(" ")
+    array = []
+    lyrics.each_with_index {|value, index| value == word ? array.push(index) : nil}
+    return {guess: word, indices: array}
   end
 
-  def self.encrypt(plain_data)
-    cipher = OpenSSL::Cipher::AES.new(128, :CBC).encrypt
-    cipher.key = @@key
-    cipher.iv = @@iv
-
-    encrypted = cipher.update(plain_data) + cipher.final
+  def update_score(score)
+    self.update(total: self.total + score)
+    return self.total
   end
 
-  def self.decrypt(encrypted_data)
-    decipher = OpenSSL::Cipher::AES.new(128, :CBC)
-    decipher.decrypt
-    decipher.key = @@key
-    decipher.iv = @@iv
+  # def self.find_next_hint(guess_array) #don't need to use unless we're using sessions to transfer that data
+  #   i = 0
+  #   until guess_array[i] != i do
+  #       i += 1
+  #   end
+  #   return Game.find(session[:game_id]).song.lyrics.split(" ")[i]
+  # end
 
-    plain = decipher.update(encrypted_data) + decipher.final
-  end
+  # def self.encrypt(plain_data)
+  #   cipher = OpenSSL::Cipher::AES.new(128, :CBC).encrypt
+  #   cipher.key = @@key
+  #   cipher.iv = @@iv
+
+  #   encrypted = cipher.update(plain_data) + cipher.final
+  # end
+
+  # def self.decrypt(encrypted_data)
+  #   decipher = OpenSSL::Cipher::AES.new(128, :CBC)
+  #   decipher.decrypt
+  #   decipher.key = @@key
+  #   decipher.iv = @@iv
+
+  #   plain = decipher.update(encrypted_data) + decipher.final
+  # end
 
 end

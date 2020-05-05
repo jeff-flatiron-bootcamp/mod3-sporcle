@@ -25,7 +25,7 @@ class GamesController < ApplicationController
     def create #creates game and sends lyric length back to front end to populate tr's/li's on their end
         artist = Artist.find(params[:artist_id])
         song = artist.songs.sample
-        new_game = Game.create(song_id: song.id) #need to set game_id in session
+        new_game = Game.create(song_id: song.id, total: 0) #need to set game_id in session
 
 
         ## attempts at encryption through sessions and encoding
@@ -45,15 +45,15 @@ class GamesController < ApplicationController
 
     def guess #this is an update CRUD action, but it is more secure to leave out the id frmo the route
         game = Game.find(params[:game_id])
-
-        #iterate through lyric array - game.find_guesses - should return array of indices
-        #update score - game.update_score - should return new score - will need logic in case score is nil - should take in indices_array.length
         #validate that guess has not already been registered - new guess table with game foreign id - need a function to check if that guess already exists
-
-        render json: {guess: params[:guess],
-            score: 3,
-            indices: [3, 7, 9]
-        }
+        byebug
+        guess = Guess.new(word: params[:guess], game_id: game.id)
+        if guess.save
+            return_object = game.find_guesses(params[:guess]) #should return array of indices
+            return_object[:score] = game.update_score(return_object[:indices].length) # this is convoluted - refactor if time
+            render json: return_object
+        else
+            render json: {error: "You already guessed #{params[:guess]}"}
+        end
     end
-
 end
