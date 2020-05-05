@@ -20,10 +20,16 @@ function fetchLyrics(artistID) {
     }) // this should just be an integer as a length - will we populate the score denominator and the word li's/tr's using a for loop
 };
 
-function fetchAllArtists(){    
+function fetchAllArtists(populateArtists){    
     fetch(ARTISTS_URL)
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => populateArtists(data))
+};
+
+function fetchArtistSongs(artistId, populateSongs){    
+    fetch(`${ARTISTS_URL}/${artistId}`)
+    .then(res => res.json())
+    .then(artist => populateSongs(artist.songs))
 };
 
 function fetchHint(hintNumber) {
