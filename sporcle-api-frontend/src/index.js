@@ -237,8 +237,8 @@ function buildLyricBox(){
     lyricsDiv.className = "parent"
     for(let i =0; i <lyricsCount;i++){
         let td = document.createElement("td")
-        td.id = "box" + i
-        td.innerText = i
+        td.id = "box_" + i
+        td.innerText = " "
         lyricsDiv.appendChild(td)
     }
     mainElm.appendChild(lyricsDiv)
@@ -271,7 +271,7 @@ function guessParse(guess){
 //replace squares in lyric box with guessed words
 function correctGuessHandler(guess){
     const location = (guess[1])
-    const guessBox = document.getElementById(`box${location}`)
+    const guessBox = document.getElementById(`box_${location}`)
     guessBox.innerHTML=guess[0]
 }
 
