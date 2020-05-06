@@ -5,10 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-Artist.delete_all
-Song.delete_all
 Game.delete_all
+Song.delete_all
+Artist.delete_all
 
 lyric1 = "We're all going to a summer holiday No more swinging for a week or two Lonely sausages and strong forks at our summer holiday No more strong chaps for me or you For a week or two"
 lyric2 = "I can't wait to do some daring with you You can't wait to do some daring with me This just can't be summer love, you'll see This just can't be summer love"

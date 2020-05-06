@@ -5,8 +5,8 @@ let btnDiv = document.createElement("div")
 let artistBtnDiv = document.createElement("div")
 let artistSelect = document.createElement("select")
 //song selection
-let songBtnDiv = document.createElement("div")
-let songSelect = document.createElement("select")
+// let songBtnDiv = document.createElement("div")
+// let songSelect = document.createElement("select")
 //start
 let startDiv = document.createElement("div")
 let startGame = document.createElement("button")
@@ -21,6 +21,7 @@ let contentP = document.createElement("p")
 //score
 let scoreDiv = document.createElement("div")
 let score = document.createElement("span")
+let lyricsCountNumber = 0
 //countdown timer
 //let count
 let timerDiv = document.createElement("div")
@@ -38,6 +39,7 @@ giveUpBtn.id = "giveUp"
 //lyric box
 let lyricsDiv = document.createElement("table")
 
+let artistId
 //*************build HTML elements*************************************************************************************
 //countdown timer
 function startTimer(duration, display) {
@@ -77,34 +79,34 @@ function buildArtistsSelection(artists){
 
 function selectArtistHandler(artists){
     let artistName = event.target.value
-    let artistId = event.target.selectedOptions[0].id
-
-    fetchArtistSongs(artistId, buildSongs)
+    artistId = event.target.selectedOptions[0].id
+    
+    //fetchArtistSongs(artistId, buildSongs)
 }
 //build song
-function buildSongs(songs){
-    songBtnDiv.innerText = "Select an song:"
-    songSelect.className = "songs-select"
-    songSelect.innerHTML=''
-    let opOne = document.createElement("option")
-    opOne.innerText = "Select one ..."
-    songSelect.appendChild(opOne)
-    songs.forEach(song=>{
-        let op = document.createElement("option")
-        op.id = song.id
-        op.innerText = song.title
-        songSelect.appendChild(op)
-    })
-    songSelect.addEventListener("change",()=>selectSongHandler(songs))
-    songBtnDiv.appendChild(songSelect)
-    btnDiv.appendChild(songBtnDiv)
-}
+// function buildSongs(songs){
+//     songBtnDiv.innerText = "Select an song:"
+//     songSelect.className = "songs-select"
+//     songSelect.innerHTML=''
+//     let opOne = document.createElement("option")
+//     opOne.innerText = "Select one ..."
+//     songSelect.appendChild(opOne)
+//     songs.forEach(song=>{
+//         let op = document.createElement("option")
+//         op.id = song.id
+//         op.innerText = song.title
+//         songSelect.appendChild(op)
+//     })
+//     songSelect.addEventListener("change",()=>selectSongHandler(songs))
+//     songBtnDiv.appendChild(songSelect)
+//     btnDiv.appendChild(songBtnDiv)
+// }
 
-function selectSongHandler(songs){
-    let songName = event.target.value
-    let songId = event.target.selectedOptions[0].id
+// function selectSongHandler(songs){
+//     let songName = event.target.value
+//     let songId = event.target.selectedOptions[0].id
 
-}
+// }
 //build start game button
 function buildStartGameBtn(){
     startGame.innerText = "Start the game"
@@ -115,9 +117,11 @@ function buildStartGameBtn(){
         hintDiv.style.display = "block"
         pauseDiv.style.display = "block"
         giveUpDiv.style.display = "block"
+        artistSelect.style.display = "none"
         //start timer
         let countdown = document.getElementById("timer")
         startTimer(countDownMinutes, countdown)
+        fetchLyrics(artistId,buildLyricBox)
     })
     
     startDiv.appendChild(startGame)
@@ -137,7 +141,7 @@ function buildInputBox(){
     let input = document.getElementById("inputByUser")
     input.addEventListener("keydown", function(e){  
         if (e.keyCode === 13){ 
-            console.log(e.target.value)
+            fetchWord(e.target.value, guessParse)
             e.target.value=""
             } 
         })
@@ -152,6 +156,7 @@ function buildHintBtn(){
     hintBtn.addEventListener("click", function(e){
         hintDiv.style.display = "none"
         hintContentDiv.style.display = "block"
+        fetchHint(findHint(),showHintWord)
     //only show hint for 5 seconds, deal with it! 
         setTimeout(function(){
             hintDiv.style.display = "block"
@@ -162,17 +167,27 @@ function buildHintBtn(){
     hintDiv.appendChild(hintBtn)
     btnDiv.appendChild(hintDiv) 
     //hint content
-    contentP.innerText = "I am the hint"
+    function showHintWord(data){
+        contentP.innerText = data
+    }
     hintContentDiv.style.display = "none"
 
     hintContentDiv.appendChild(contentP)
     btnDiv.appendChild(hintContentDiv)
 }
-
+//
+function findHint(){
+    let numberOfWords = lyricsDiv.childNodes
+    let i
+    for (i = 0; i != parseInt(numberOfWords[i].innerText); i++) {
+      
+    }
+    return i
+}
 //build score
 function buildScore(){
     scoreDiv.innerText = "Score: "
-    score.innerText = "0/100"
+    score.innerText = "0"
     
     scoreDiv.appendChild(score)
     btnDiv.appendChild(scoreDiv)
@@ -231,41 +246,44 @@ function buildGiveUpBtn(){
     btnDiv.appendChild(giveUpDiv)
 }
 //build lyric box
-function buildLyricBox(){
-    let lyricsCount = 50
-    
+function buildLyricBox(lyricsCount){  
+    lyricsCountNumber = lyricsCount
     lyricsDiv.className = "parent"
     for(let i =0; i <lyricsCount;i++){
         let td = document.createElement("td")
         td.id = "box_" + i
-        td.innerText = " "
+        td.innerText = i
         lyricsDiv.appendChild(td)
     }
     mainElm.appendChild(lyricsDiv)
+    scoreDiv.innerText = `0/${lyricsCount}`
 }
 
-// Temporary guess button
-let guess = {guess:"you",score: 2, indices: [4, 9, 17, 21, 34] }
-let correctDiv = document.createElement("div")
-let correctBtn = document.createElement("button")
-correctBtn.innerText = "testing"
-correctBtn.addEventListener("click", function(event) {
-    // console.log(guess.indices)
-    guessParse(guess);
-})
-correctDiv.appendChild(correctBtn)
-btnDiv.appendChild(correctDiv)
+// // Temporary guess button
+// let guess = {guess:"you",score: 2, indices: [4, 9, 17, 21, 34] }
+// let correctDiv = document.createElement("div")
+// let correctBtn = document.createElement("button")
+// correctBtn.innerText = "testing"
+// correctBtn.addEventListener("click", function(event) {
+//     // console.log(guess.indices)
+//     guessParse(guess);
+// })
+// correctDiv.appendChild(correctBtn)
+// btnDiv.appendChild(correctDiv)
 
 
 //parse data from fetch into individual arrays for correct guess handler
 function guessParse(guess){
-    i=(guess.indices.length)
-    for (let i = 0; i<guess.indices.length; i++ ){
+    let arrLength = guess.indices.length
+    for (let i = 0; i<arrLength; i++ ){
         const array = []
         array[0]=guess.guess
-        array[1]=(guess.indices[i] - 1)
+        array[1]=(guess.indices[i])
         correctGuessHandler(array)
     }
+
+
+    scoreDiv.innerText = guess.score + "/"+ lyricsCountNumber
 }
 
 //replace squares in lyric box with guessed words
@@ -295,8 +313,8 @@ buildCountDownTimer()
 buildPauseBtn()
 //give up
 buildGiveUpBtn()
-//lyrics box
-buildLyricBox()
+
+
 }
 
 //giveUp to see all answers

@@ -3,7 +3,7 @@ const ARTISTS_URL = `${BASE_URL}/artists`
 const SONG_URL = `${BASE_URL}/songs`
 const GAMES_URL = `${BASE_URL}/games`
 
-function fetchLyrics(artistID) {
+function fetchLyrics(artistID, callBackFunction) {
     fetch(GAMES_URL, {
         method: "POST",
         headers: {
@@ -16,7 +16,7 @@ function fetchLyrics(artistID) {
     .then(res => res.json())
     .then(json => {
         localStorage.setItem("game_id", json.game_id);
-        console.log(json)
+        callBackFunction(json.lyric_length)
     }) // this should just be an integer as a length - will we populate the score denominator and the word li's/tr's using a for loop
 };
 
@@ -32,7 +32,7 @@ function fetchArtistSongs(artistId, populateSongs){
     .then(artist => populateSongs(artist.songs))
 };
 
-function fetchHint(hintNumber) {
+function fetchHint(hintNumber,callBackFunction) {
     fetch(GAMES_URL + '/hint', {
         method: "POST",
         headers: {
@@ -45,10 +45,10 @@ function fetchHint(hintNumber) {
         })
     })
     .then(res => res.json())
-    .then(json => console.log(json))
+    .then(json => callBackFunction(json.hint))
 }
 
-function fetchWord(word) {
+function fetchWord(word, callBackFunction) {
     fetch(GAMES_URL + `/guess`, {
         method: "PATCH",
         headers: {
@@ -61,7 +61,7 @@ function fetchWord(word) {
         })
     })
     .then(res => res.json())
-    .then(json => console.log(json))
+    .then(json => callBackFunction(json))
 }
 
 
