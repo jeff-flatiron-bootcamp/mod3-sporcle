@@ -2,8 +2,8 @@ class Game < ApplicationRecord
   belongs_to :song
   has_many :guesses
 
-  # @@key = '1a3856t83e01b171' #this needs to change for production
-  # @@iv = '1s3b5bu83602s11t'
+  @@key = '1a3856t83e01b171' #this needs to change for production
+  @@iv = '1s3b5bu83602s11t'
 
   def self.generate_hint(word)
     if word.length < 3
@@ -40,21 +40,26 @@ class Game < ApplicationRecord
   #   return Game.find(session[:game_id]).song.lyrics.split(" ")[i]
   # end
 
-  # def self.encrypt(plain_data)
-  #   cipher = OpenSSL::Cipher::AES.new(128, :CBC).encrypt
-  #   cipher.key = @@key
-  #   cipher.iv = @@iv
+  def self.encrypt(plain_data)
+    cipher = OpenSSL::Cipher::AES128.new(:CBC)
+    cipher.encrypt        
+    
+    cipher.key = @@key
+    cipher.iv = @@iv
+    encrypted = cipher.update(plain_data) + cipher.final
+    encoded = Base64.encode64(encrypted).encode('utf-8')
 
-  #   encrypted = cipher.update(plain_data) + cipher.final
-  # end
+  end
 
-  # def self.decrypt(encrypted_data)
-  #   decipher = OpenSSL::Cipher::AES.new(128, :CBC)
-  #   decipher.decrypt
-  #   decipher.key = @@key
-  #   decipher.iv = @@iv
-
-  #   plain = decipher.update(encrypted_data) + decipher.final
-  # end
+  def self.decrypt(encoded_data)
+    encoded = encoded_data;
+    decoded = Base64.decode64 encoded.encode('ascii-8bit')
+    decipher = OpenSSL::Cipher::AES.new(128, :CBC)
+    decipher.decrypt
+    decipher.key = @@key
+    decipher.iv = @@iv       
+    plain = decipher.update(decoded) + decipher.final
+      
+  end
 
 end

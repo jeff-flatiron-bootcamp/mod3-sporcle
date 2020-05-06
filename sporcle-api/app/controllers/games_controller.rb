@@ -9,10 +9,9 @@ class GamesController < ApplicationController
 
     def hint #session[:guesses] should be an array of indexes they have guessed
         # word = Game.find_next_hint(hintNumber) #will probably need to do something to session[:guesses]
-
-        song = Game.find(params[:game_id]).song
+        decrypted_game_id = Game.decrypt(params[:game_id]);    
+        song = Game.find(decrypted_game_id).song        
         word = song.lyric.split(" ")[params[:hintNumber]]
-
         render json: {hint: Game.generate_hint(word)}
     end
     
@@ -26,27 +25,15 @@ class GamesController < ApplicationController
         artist = Artist.find(params[:artist_id])
         song = artist.songs.sample
         new_game = Game.create(song_id: song.id, total: 0) #need to set game_id in session
-
-
-        ## attempts at encryption through sessions and encoding
-
-        # session[:init] = true
-        # session["game_id"] = new_game.id
-        # session[:guesses] = [1, 2, 3, 4]
-
-        # encoded_id = Game.encrypt("message").encode("UTF-8", invalid: :replace) - may try to get this to work later
-        # ec = Encoding::Converter.new("ASCII-8BIT", "UTF-8")
-        # new_id = ec.convert(encoded_id)
-
+        encoded = Game.encrypt(new_game.id.to_s)
         
-        lyrics = song.lyric.split(" ").length
-        render json: {lyric_length: lyrics, game_id: new_game.id}
+        lyrics = song.lyric.split(" ").length        
+        render json: {lyric_length: lyrics, game_id: encoded}
     end
 
     def guess #this is an update CRUD action, but it is more secure to leave out the id frmo the route
-        game = Game.find(params[:game_id])
-        #validate that guess has not already been registered - new guess table with game foreign id - need a function to check if that guess already exists
-      
+        decrypted_game_id = Game.decrypt(params[:game_id]);        
+        game = Game.find(decrypted_game_id)                             
         guess = Guess.new(word: params[:guess], game_id: game.id)
         if guess.save
             return_object = game.find_guesses(params[:guess]) #should return array of indices
