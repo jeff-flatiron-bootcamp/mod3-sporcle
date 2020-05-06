@@ -28,7 +28,7 @@ let timerDiv = document.createElement("div")
 let countdown = document.createElement("p")
 countdown.id = "timer"
 //count down from 12 minutes
-let countDownMinutes = 5
+let countDownMinutes = 60*5
 //pause button
 // let pauseDiv = document.createElement("div")
 // let pauseBtn = document.createElement("button")
