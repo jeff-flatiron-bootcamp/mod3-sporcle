@@ -24,6 +24,7 @@ class GamesController < ApplicationController
         render json: {artist: game.song.artist.name, song_title: game.song.title, lyrics: lyrics, total_score: game.total, time: game.time}
     end
 
+    
 
 
     def create #creates game and sends lyric length back to front end to populate tr's/li's on their end
@@ -31,8 +32,8 @@ class GamesController < ApplicationController
         song = artist.songs.sample
         new_game = Game.create(song_id: song.id, total: 0) #need to set game_id in session
         encoded = Game.encrypt(new_game.id.to_s)
-        
-        lyrics = song.lyric.split(" ").length        
+       
+        lyrics =  new_game.lower_case_lyrics.length      
         render json: {lyric_length: lyrics, game_id: encoded}
     end
 

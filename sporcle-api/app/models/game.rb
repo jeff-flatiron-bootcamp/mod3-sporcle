@@ -21,10 +21,11 @@ class Game < ApplicationRecord
   
 
   def find_guesses(word)    #return indices where it is found - array of numbers - or possibly object with word and indices
-    lyrics = self.song.lyric.split(" ")
+    lyrics = self.lower_case_lyrics
+    word = word.gsub(/[!@#$%^&*()-=_+|;:",.<>?\s]/, '').downcase
     array = []
     lyrics.each_with_index {|value, index| value == word ? array.push(index) : nil}
-    return {guess: word, indices: array}
+    return {guess: word.upcase, indices: array}
   end
 
   def update_score(score)
@@ -71,6 +72,11 @@ class Game < ApplicationRecord
       return "#{minutes}:#{seconds}"
     end
 
+  end
+
+  def lower_case_lyrics
+   lyricsArr = self.song.lyric
+   lyricsArr.gsub(/[!@#$%^&*()-=_+|;:",.<>?]/, '').downcase.split(" ")
   end
 
 end
