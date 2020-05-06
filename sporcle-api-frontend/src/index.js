@@ -64,7 +64,9 @@ function buildArtistsSelection(artists){
     artistSelect.className = "artists-select"
     artistBtnDiv.innerText = "Select an artist:"
     let opOne = document.createElement("option")
-    opOne.innerText = "Select one ..."
+    opOne.innerText = "Random"
+    randArtist = Math.floor(Math.random() * artists.length)
+    opOne.id = artists[randArtist].id
     artistSelect.appendChild(opOne)
     artists.forEach(artist=>{
         let op = document.createElement("option")
@@ -72,17 +74,17 @@ function buildArtistsSelection(artists){
         op.innerText = artist.name
         artistSelect.appendChild(op)
     })
-    artistSelect.addEventListener("change",()=>selectArtistHandler(artists))
+    // artistSelect.addEventListener("change", selectArtistHandler)
     artistBtnDiv.appendChild(artistSelect)
     btnDiv.appendChild(artistBtnDiv)
 }
 
-function selectArtistHandler(artists){
-    let artistName = event.target.value
-    artistId = event.target.selectedOptions[0].id
+// function selectArtistHandler(event){
+//     debugger
+//     artistId = event.target.selectedOptions[0].id
     
-    //fetchArtistSongs(artistId, buildSongs)
-}
+//     //fetchArtistSongs(artistId, buildSongs)
+// }
 //build song
 // function buildSongs(songs){
 //     songBtnDiv.innerText = "Select an song:"
@@ -112,6 +114,9 @@ function buildStartGameBtn(){
     startGame.innerText = "Start the game"
     startGame.addEventListener("click",()=>{
         //start to see all other buttons
+
+        artistId = artistSelect.selectedOptions[0].id
+        
         startDiv.style.display = "none"
         inputDiv.style.display = "block"
         hintDiv.style.display = "block"
