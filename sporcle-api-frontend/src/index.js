@@ -319,7 +319,7 @@ buildGiveUpBtn()
 
 //giveUp to see all answers
 function showAllAnswers(e){
-    fetchAllLyrics()
+    fetchAllLyrics(handleComplete)
 }
 
 // function indexTest(objectJson){
@@ -328,3 +328,29 @@ function showAllAnswers(e){
 
 btnForm()
 //fetchLyrics(1)
+
+function handleComplete(completionData) {
+    // get everything off of the screen
+    // create a new card
+    // populate that card with the completionData
+    mainElm.innerHTML = ""
+
+    mainElm.style = "text-align: center; border: solid;"
+
+    completionCard = document.createElement("div")
+    artistP = document.createElement("p")
+    songP = document.createElement("p")
+    lyricsP = document.createElement("p")
+    scoreP = document.createElement("p")
+    timeP = document.createElement("p")
+
+    artistP.innerText = "Artist: " + completionData.artist
+    songP.innerText = "Song Title: " + completionData.song_title
+    lyricsP.innerText = "Lyrics: " + completionData.lyrics
+    scoreP.innerText = "Score: " + completionData.total_score + "/" + completionData.lyrics.split(" ").length
+    timeP.innerText = "Time: " + completionData.time
+
+    completionCard.append(artistP, songP, lyricsP, scoreP, timeP)
+
+    mainElm.appendChild(completionCard)
+}
