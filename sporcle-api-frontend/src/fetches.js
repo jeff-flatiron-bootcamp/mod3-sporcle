@@ -64,7 +64,7 @@ function fetchWord(word, callBackFunction) {
     .then(json => callBackFunction(json))
 }
 
-function fetchAllLyrics(callBackFunction)
+function fetchAllLyrics(callBackFunction, message)
 {
     fetch(GAMES_URL + `/finish`, {
         method: "POST",
@@ -78,7 +78,7 @@ function fetchAllLyrics(callBackFunction)
     })
     .then(res => res.json())
     .then(json => {
-        callBackFunction(json)
+        callBackFunction(json, message)
     })
 }
 

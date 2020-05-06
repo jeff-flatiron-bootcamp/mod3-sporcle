@@ -28,10 +28,10 @@ let timerDiv = document.createElement("div")
 let countdown = document.createElement("p")
 countdown.id = "timer"
 //count down from 12 minutes
-let countDownMinutes = 60 * 5
+let countDownMinutes = 5
 //pause button
-let pauseDiv = document.createElement("div")
-let pauseBtn = document.createElement("button")
+// let pauseDiv = document.createElement("div")
+// let pauseBtn = document.createElement("button")
 //give up button
 let giveUpDiv = document.createElement("div")
 let giveUpBtn = document.createElement("button")
@@ -54,7 +54,7 @@ function startTimer(duration, display) {
         display.innerText = minutes + ":" + seconds;
 
         if (--timer < 0) {
-            timer = duration;
+            showAllAnswers("Time ran out!")
         }
     }, 1000);
 }
@@ -120,7 +120,7 @@ function buildStartGameBtn(){
         startDiv.style.display = "none"
         inputDiv.style.display = "block"
         hintDiv.style.display = "block"
-        pauseDiv.style.display = "block"
+        // pauseDiv.style.display = "block"
         giveUpDiv.style.display = "block"
         artistSelect.style.display = "none"
         //start timer
@@ -199,42 +199,42 @@ function buildScore(){
 
 }
 //build pause button
-function buildPauseBtn(){
-    pauseBtn.innerText = "pause"
-    pauseDiv.style.display = "none"
+// function buildPauseBtn(){
+//     pauseBtn.innerText = "pause"
+//     pauseDiv.style.display = "none"
     
-    pauseBtn.addEventListener("click",function(e){
-        let inputBox = document.getElementById("inputByUser")
-        let hint = document.getElementById("hint")
-        let giveUp = document.getElementById("giveUp")
+//     pauseBtn.addEventListener("click",function(e){
+//         let inputBox = document.getElementById("inputByUser")
+//         let hint = document.getElementById("hint")
+//         let giveUp = document.getElementById("giveUp")
     
-        if(e.target.innerText === "pause"){
-            e.target.innerText = "resume"
-            //pause timer
-            clearInterval(count)
-            //disable input box and buttons
-            inputBox.disabled = true
-            hint.disabled = true
-            giveUp.disabled = true
-        }
-        else{
-            e.target.innerText = "pause"
-            //resume timer
-            let display = document.getElementById("timer")
-            let timerCount = display.innerText
-            let arrTime = timerCount.split(":")
-            let time = parseInt(arrTime[0])*60 + parseInt(arrTime[1])
-            startTimer(time, display)
-            //resume buttons
-            inputBox.disabled = false
-            hint.disabled = false
-            giveUp.disabled = false
-        }
-    })
+//         if(e.target.innerText === "pause"){
+//             e.target.innerText = "resume"
+//             //pause timer
+//             clearInterval(count)
+//             //disable input box and buttons
+//             inputBox.disabled = true
+//             hint.disabled = true
+//             giveUp.disabled = true
+//         }
+//         else{
+//             e.target.innerText = "pause"
+//             //resume timer
+//             let display = document.getElementById("timer")
+//             let timerCount = display.innerText
+//             let arrTime = timerCount.split(":")
+//             let time = parseInt(arrTime[0])*60 + parseInt(arrTime[1])
+//             startTimer(time, display)
+//             //resume buttons
+//             inputBox.disabled = false
+//             hint.disabled = false
+//             giveUp.disabled = false
+//         }
+//     })
     
-    pauseDiv.appendChild(pauseBtn)
-    btnDiv.appendChild(pauseDiv)
-}
+//     pauseDiv.appendChild(pauseBtn)
+//     btnDiv.appendChild(pauseDiv)
+// }
 //build countdown timer
 function buildCountDownTimer(){
     timerDiv.appendChild(countdown)
@@ -245,7 +245,7 @@ function buildGiveUpBtn(){
     giveUpBtn.innerText = "Give up!!!"
     giveUpDiv.style.display = "none"
     
-    giveUpBtn.addEventListener("click", showAllAnswers)
+    giveUpBtn.addEventListener("click", giveUpHandler)
     
     giveUpDiv.appendChild(giveUpBtn)
     btnDiv.appendChild(giveUpDiv)
@@ -287,7 +287,7 @@ function guessParse(guess){
         correctGuessHandler(array)
     }
     scoreDiv.innerText = guess.score + "/"+ lyricsCountNumber
-    gameEnded() ? showAllAnswers() : null
+    gameEnded() ? showAllAnswers("Great job!") : null
 }
 
 //replace squares in lyric box with guessed words
@@ -314,7 +314,7 @@ buildScore()
 //countdown timer
 buildCountDownTimer()
 //pause button
-buildPauseBtn()
+// buildPauseBtn()
 //give up
 buildGiveUpBtn()
 
@@ -322,8 +322,8 @@ buildGiveUpBtn()
 }
 
 //giveUp to see all answers
-function showAllAnswers(e){
-    fetchAllLyrics(handleComplete)
+function showAllAnswers(message){
+    fetchAllLyrics(handleComplete, message)
 }
 
 // function indexTest(objectJson){
@@ -333,16 +333,20 @@ function showAllAnswers(e){
 btnForm()
 //fetchLyrics(1)
 
-function handleComplete(completionData) {
+function handleComplete(completionData, message) {
     // get everything off of the screen
     // create a new card
     // populate that card with the completionData
+    time = countdown.innerText
+
     mainElm.innerHTML = ""
+
     clearInterval(count)
 
     mainElm.style = "text-align: center; border: solid;"
 
     completionCard = document.createElement("div")
+    messageP = document.createElement("p")
     artistP = document.createElement("p")
     songP = document.createElement("p")
     lyricsP = document.createElement("p")
@@ -353,9 +357,10 @@ function handleComplete(completionData) {
     songP.innerText = "Song Title: " + completionData.song_title
     lyricsP.innerText = "Lyrics: " + completionData.lyrics
     scoreP.innerText = "Score: " + completionData.total_score + "/" + completionData.lyrics.split(" ").length
-    timeP.innerText = "Time: " + completionData.time
+    timeP.innerText = "Time Remaining: " + time
+    messageP.innerText = message
 
-    completionCard.append(artistP, songP, lyricsP, scoreP, timeP)
+    completionCard.append(messageP, artistP, songP, lyricsP, scoreP, timeP)
 
     mainElm.appendChild(completionCard)
 }
@@ -369,4 +374,8 @@ function gameEnded() {
         }
     }
     return true
+}
+
+function giveUpHandler() {
+    showAllAnswers("You gave up")
 }

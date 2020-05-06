@@ -59,4 +59,18 @@ class Game < ApplicationRecord
     plain = decipher.update(decoded) + decipher.final      
   end
 
+  def calculate_time
+    time_in_seconds = (self.updated_at - self.created_at).round
+    time_in_seconds = 300 - time_in_seconds
+    if time_in_seconds < 0
+      return "0:00"
+    else
+      minutes = time_in_seconds / 60
+      seconds = time_in_seconds % 60
+      seconds = seconds < 10 ? "0" + seconds.to_s : seconds
+      return "#{minutes}:#{seconds}"
+    end
+
+  end
+
 end

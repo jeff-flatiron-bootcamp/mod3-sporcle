@@ -21,7 +21,7 @@ class GamesController < ApplicationController
         game = Game.find(decrypted_game_id)
         lyrics = game.song.lyric
         # this is the place that we will close the game
-        #byebug
+        byebug
         render json: {artist: game.song.artist.name, song_title: game.song.title, lyrics: lyrics, total_score: game.total, time: game.time}
     end
 
@@ -39,7 +39,7 @@ class GamesController < ApplicationController
 
     def guess #this is an update CRUD action, but it is more secure to leave out the id frmo the route
         decrypted_game_id = Game.decrypt(params[:game_id]);        
-        game = Game.find(decrypted_game_id)                             
+        game = Game.find(decrypted_game_id)  
         guess = Guess.new(word: params[:guess], game_id: game.id)
         if guess.save
             return_object = game.find_guesses(params[:guess]) #should return array of indices
