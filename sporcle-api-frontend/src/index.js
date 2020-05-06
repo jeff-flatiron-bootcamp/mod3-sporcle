@@ -28,7 +28,7 @@ let timerDiv = document.createElement("div")
 let countdown = document.createElement("p")
 countdown.id = "timer"
 //count down from 12 minutes
-let countDownMinutes = 60 * 12
+let countDownMinutes = 60 * 5
 //pause button
 let pauseDiv = document.createElement("div")
 let pauseBtn = document.createElement("button")
@@ -116,7 +116,7 @@ function buildStartGameBtn(){
         //start to see all other buttons
 
         artistId = artistSelect.selectedOptions[0].id
-        
+
         startDiv.style.display = "none"
         inputDiv.style.display = "block"
         hintDiv.style.display = "block"
@@ -286,9 +286,8 @@ function guessParse(guess){
         array[1]=(guess.indices[i])
         correctGuessHandler(array)
     }
-
-
     scoreDiv.innerText = guess.score + "/"+ lyricsCountNumber
+    gameEnded() ? showAllAnswers() : null
 }
 
 //replace squares in lyric box with guessed words
@@ -339,6 +338,7 @@ function handleComplete(completionData) {
     // create a new card
     // populate that card with the completionData
     mainElm.innerHTML = ""
+    clearInterval(count)
 
     mainElm.style = "text-align: center; border: solid;"
 
@@ -358,4 +358,15 @@ function handleComplete(completionData) {
     completionCard.append(artistP, songP, lyricsP, scoreP, timeP)
 
     mainElm.appendChild(completionCard)
+}
+
+function gameEnded() {
+    let numberOfWords = lyricsDiv.childNodes
+    let i 
+    for (i = 0; i < numberOfWords.length; i++) {
+        if (numberOfWords[i].innerText == i) {
+            return false;
+        }
+    }
+    return true
 }
