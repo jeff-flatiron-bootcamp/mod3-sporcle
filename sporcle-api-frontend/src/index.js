@@ -319,7 +319,7 @@ buildGiveUpBtn()
 
 //giveUp to see all answers
 function showAllAnswers(e){
-
+    fetchAllLyrics()
 }
 
 // function indexTest(objectJson){

@@ -42,13 +42,11 @@ class Game < ApplicationRecord
 
   def self.encrypt(plain_data)
     cipher = OpenSSL::Cipher::AES128.new(:CBC)
-    cipher.encrypt        
-    
+    cipher.encrypt            
     cipher.key = @@key
     cipher.iv = @@iv
     encrypted = cipher.update(plain_data) + cipher.final
     encoded = Base64.encode64(encrypted).encode('utf-8')
-
   end
 
   def self.decrypt(encoded_data)
@@ -58,8 +56,7 @@ class Game < ApplicationRecord
     decipher.decrypt
     decipher.key = @@key
     decipher.iv = @@iv       
-    plain = decipher.update(decoded) + decipher.final
-      
+    plain = decipher.update(decoded) + decipher.final      
   end
 
 end

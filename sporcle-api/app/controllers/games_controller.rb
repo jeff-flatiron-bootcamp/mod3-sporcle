@@ -16,10 +16,16 @@ class GamesController < ApplicationController
     end
     
 
-    def show
-        game = Game.find(params[:id])
-        render json: game
+    def finish        
+        decrypted_game_id = Game.decrypt(params[:game_id]);    
+        game = Game.find(decrypted_game_id)
+        lyrics = game.song.lyric
+        # this is the place that we will close the game
+        #byebug
+        render json: {artist: game.song.artist.name, song_title: game.song.title, lyrics: lyrics, total_score: game.total, time: game.time}
     end
+
+
 
     def create #creates game and sends lyric length back to front end to populate tr's/li's on their end
         artist = Artist.find(params[:artist_id])
