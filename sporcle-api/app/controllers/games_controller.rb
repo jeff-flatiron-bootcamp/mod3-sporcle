@@ -39,14 +39,14 @@ class GamesController < ApplicationController
         # new_id = ec.convert(encoded_id)
 
         
-        lyrics = song.lyric.length
+        lyrics = song.lyric.split(" ").length
         render json: {lyric_length: lyrics, game_id: new_game.id}
     end
 
     def guess #this is an update CRUD action, but it is more secure to leave out the id frmo the route
         game = Game.find(params[:game_id])
         #validate that guess has not already been registered - new guess table with game foreign id - need a function to check if that guess already exists
-        byebug
+      
         guess = Guess.new(word: params[:guess], game_id: game.id)
         if guess.save
             return_object = game.find_guesses(params[:guess]) #should return array of indices
