@@ -29,9 +29,6 @@ let countdown = document.createElement("p")
 countdown.id = "timer"
 //count down from 12 minutes
 let countDownMinutes = 60*5
-//pause button
-// let pauseDiv = document.createElement("div")
-// let pauseBtn = document.createElement("button")
 //give up button
 let giveUpDiv = document.createElement("div")
 let giveUpBtn = document.createElement("button")
@@ -119,8 +116,7 @@ function buildStartGameBtn(){
 
         startDiv.style.display = "none"
         inputDiv.style.display = "block"
-        hintDiv.style.display = "block"
-        // pauseDiv.style.display = "block"
+        hintDiv.style.display = "block"        
         giveUpDiv.style.display = "block"
         artistSelect.style.display = "none"
         //start timer
@@ -198,43 +194,7 @@ function buildScore(){
     btnDiv.appendChild(scoreDiv)
 
 }
-//build pause button
-// function buildPauseBtn(){
-//     pauseBtn.innerText = "pause"
-//     pauseDiv.style.display = "none"
-    
-//     pauseBtn.addEventListener("click",function(e){
-//         let inputBox = document.getElementById("inputByUser")
-//         let hint = document.getElementById("hint")
-//         let giveUp = document.getElementById("giveUp")
-    
-//         if(e.target.innerText === "pause"){
-//             e.target.innerText = "resume"
-//             //pause timer
-//             clearInterval(count)
-//             //disable input box and buttons
-//             inputBox.disabled = true
-//             hint.disabled = true
-//             giveUp.disabled = true
-//         }
-//         else{
-//             e.target.innerText = "pause"
-//             //resume timer
-//             let display = document.getElementById("timer")
-//             let timerCount = display.innerText
-//             let arrTime = timerCount.split(":")
-//             let time = parseInt(arrTime[0])*60 + parseInt(arrTime[1])
-//             startTimer(time, display)
-//             //resume buttons
-//             inputBox.disabled = false
-//             hint.disabled = false
-//             giveUp.disabled = false
-//         }
-//     })
-    
-//     pauseDiv.appendChild(pauseBtn)
-//     btnDiv.appendChild(pauseDiv)
-// }
+
 //build countdown timer
 function buildCountDownTimer(){
     timerDiv.appendChild(countdown)
@@ -313,8 +273,6 @@ buildHintBtn()
 buildScore()
 //countdown timer
 buildCountDownTimer()
-//pause button
-// buildPauseBtn()
 //give up
 buildGiveUpBtn()
 
