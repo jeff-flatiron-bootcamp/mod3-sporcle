@@ -4,6 +4,8 @@ const SONG_URL = `${BASE_URL}/songs`
 const GAMES_URL = `${BASE_URL}/games`
 
 function fetchLyrics(artistID, callBackFunction) {
+    let game_id = localStorage.getItem("game_id");
+    //debugger
     fetch(GAMES_URL, {
         method: "POST",
         headers: {
@@ -11,7 +13,7 @@ function fetchLyrics(artistID, callBackFunction) {
             "Accept": "application/json"
         },
         credentials: "same-origin",
-        body: JSON.stringify({artist_id: artistID}) //this will have to change to dynamic routing
+        body: JSON.stringify({artist_id: artistID, game_id: game_id}) //this will have to change to dynamic routing
     }) // should go to games#create ----- therefore, this should be a post request when built out
     .then(res => res.json())
     .then(json => {

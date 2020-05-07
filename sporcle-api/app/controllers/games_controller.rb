@@ -33,9 +33,20 @@ class GamesController < ApplicationController
     
 
 
-    def create #creates game and sends lyric length back to front end to populate tr's/li's on their end
+    def create #creates game and sends lyric length back to front end to populate tr's/li's on their end        
         artist = Artist.find(params[:artist_id])
+        song = {}        
         song = artist.songs.sample
+        if((nil != params[:game_id]) && (params[:game_id] != "undefined"))                            
+            game_id = Game.decrypt(params[:game_id]); 
+            game = Game.find(game_id)            
+            if(artist.songs.length>1)                
+                while(song.id == game.song.id) do                     
+                    song = artist.songs.sample
+                end
+            end            
+        end 
+                
         new_game = Game.create(song_id: song.id, total: 0) #need to set game_id in session
         encoded = Game.encrypt(new_game.id.to_s)
        
