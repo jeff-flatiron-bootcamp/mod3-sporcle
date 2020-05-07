@@ -38,6 +38,7 @@ giveUpBtn.id = "giveUp"
 let lyricsDiv = document.createElement("table")
 
 let artistId
+let currentHint
 //*************build HTML elements*************************************************************************************
 //countdown timer
 function startTimer(duration, display) {
@@ -164,13 +165,15 @@ function buildHintBtn(){
     hintDiv.style.display = "none"
     
     hintBtn.addEventListener("click", function(e){
-        hintDiv.style.display = "none"
-        hintContentDiv.style.display = "block"
+        hintDiv.style.visibility = "hidden"
+        // hintContentDiv.style.display = "block"
         fetchHint(findHint(),showHintWord)
     //only show hint for 5 seconds, deal with it! 
         setTimeout(function(){
-            hintDiv.style.display = "block"
-            hintContentDiv.style.display = "none"
+            hintDiv.style.visibility = "visible"
+            // hintContentDiv.style.display = "none"
+            currentHint.classList.toggle("current_hint")
+            currentHint.innerText = currentHint.id.split("_")[1]
         }, 5000)
     })
     
@@ -178,7 +181,8 @@ function buildHintBtn(){
     btnDiv.appendChild(hintDiv) 
     //hint content
     function showHintWord(data){
-        contentP.innerText = data
+        currentHint.classList.toggle("current_hint")
+        currentHint.innerText = data
     }
     hintContentDiv.style.display = "none"
 
@@ -187,11 +191,12 @@ function buildHintBtn(){
 }
 //
 function findHint(){
-    let numberOfWords = lyricsDiv.childNodes
+    numberOfWords = lyricsDiv.childNodes
     let i
     for (i = 0; i != parseInt(numberOfWords[i].innerText); i++) {
       
     }
+    currentHint = document.getElementById(`box_${i}`)
     return i
 }
 //build score
