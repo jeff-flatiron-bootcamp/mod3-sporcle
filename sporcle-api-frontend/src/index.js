@@ -185,7 +185,8 @@
         //hint content
         function showHintWord(data){
             currentHint.classList.toggle("current_hint")
-            currentHint.innerText = data
+            currentHint.innerText = data.hint
+            scoreDiv.innerText = data.total + "/" + scoreDiv.innerText.split("/")[1]
         }
         hintContentDiv.style.display = "none"
 

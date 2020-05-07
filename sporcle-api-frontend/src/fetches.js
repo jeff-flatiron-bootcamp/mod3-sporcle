@@ -41,7 +41,7 @@ function fetchHint(hintNumber,callBackFunction) {
         })
     })
     .then(res => res.json())
-    .then(json => callBackFunction(json.hint))
+    .then(json => callBackFunction(json))
 }
 
 function fetchWord(word, callBackFunction) {
