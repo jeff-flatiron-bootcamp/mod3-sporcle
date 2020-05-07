@@ -341,6 +341,7 @@
         mainElm.style = "text-align: center; border: solid;"
 
         completionCard = document.createElement("div")
+        completionCard.id = "completionCard"
         
         messageP = document.createElement("p")
         artistP = document.createElement("p")
