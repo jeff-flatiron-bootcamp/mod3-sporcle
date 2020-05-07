@@ -140,6 +140,7 @@ function buildInputBox(){
     inputDiv.style.display = "none"
     btnDiv.appendChild(inputDiv)
     let input = document.getElementById("inputByUser")
+    
     input.addEventListener("keydown", function(e){  
         if (e.keyCode === 13){ 
             fetchWord(e.target.value, guessParse)
@@ -236,10 +237,24 @@ function buildLyricBox(lyricsCount){
 // correctDiv.appendChild(correctBtn)
 // btnDiv.appendChild(correctDiv)
 
+//custom message based on timeout
+function displayMessageWithTimeout(input)
+{ 
+    infoBox = document.createElement('div')    
+    mainElm.append(infoBox);
+    infoBox.innerText = input;
+    setTimeout(function(){ infoBox.remove() }, 2000);
+}
 
 //parse data from fetch into individual arrays for correct guess handler
 function guessParse(guess){
-    let arrLength = guess.indices.length
+    if(guess.error)
+    {
+        displayMessageWithTimeout(guess.error)
+        return false
+    }
+
+    let arrLength = guess.indices.length    
     for (let i = 0; i<arrLength; i++ ){
         const array = []
         array[0]=guess.guess

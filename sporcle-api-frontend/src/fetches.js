@@ -55,7 +55,7 @@ function fetchWord(word, callBackFunction) {
         })
     })
     .then(res => res.json())
-    .then(json => callBackFunction(json))
+    .then(json => callBackFunction(json))    
 }
 
 function fetchAllLyrics(callBackFunction, message)
