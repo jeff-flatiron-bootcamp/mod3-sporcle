@@ -15,7 +15,7 @@ class GamesController < ApplicationController
         if game.completion
             render json: {error: "You trying to cheat?"}
         else      
-            word = song.lyric.split(" ")[params[:hintNumber]]
+            word = game.lower_case_lyrics[params[:hintNumber]]
             render json: {hint: Game.generate_hint(word)}
         end
     end
@@ -28,7 +28,7 @@ class GamesController < ApplicationController
         
         lyrics = game.song.lyric
         # this is the place that we will close the game
-        render json: {artist: game.song.artist.name, song_title: game.song.title, lyrics: lyrics, total_score: game.total, time: game.calculate_time}
+        render json: {artist: game.song.artist.name, song_title: game.song.title, lyrics: lyrics, total_score: game.total, time: game.calculate_time, url:game.song.url}
     end
 
     
