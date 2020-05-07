@@ -10,8 +10,9 @@ class GamesController < ApplicationController
     def hint #session[:guesses] should be an array of indexes they have guessed
         # word = Game.find_next_hint(hintNumber) #will probably need to do something to session[:guesses]
         decrypted_game_id = Game.decrypt(params[:game_id]);            
-        song = Game.find(decrypted_game_id).song        
-        if (game.completion) 
+        game = Game.find(decrypted_game_id)
+        song = game.song      
+        if game.completion
             render json: {error: "You trying to cheat?"}
         else      
             word = song.lyric.split(" ")[params[:hintNumber]]
