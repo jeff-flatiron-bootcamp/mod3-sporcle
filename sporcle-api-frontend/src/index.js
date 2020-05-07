@@ -357,7 +357,7 @@ function handleComplete(completionData, message) {
     songP.innerText = "Song Title: " + completionData.song_title
     lyricsP.innerText = "Lyrics: " + completionData.lyrics
     scoreP.innerText = "Score: " + completionData.total_score + "/" + completionData.lyrics.split(" ").length
-    timeP.innerText = "Time Remaining: " + time
+    timeP.innerText = "Time Remaining: " + completionData.time
     messageP.innerText = message
 
     completionCard.append(messageP, artistP, songP, lyricsP, scoreP, timeP)

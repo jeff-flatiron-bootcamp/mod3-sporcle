@@ -21,7 +21,7 @@ class GamesController < ApplicationController
         game = Game.find(decrypted_game_id)
         lyrics = game.song.lyric
         # this is the place that we will close the game
-        render json: {artist: game.song.artist.name, song_title: game.song.title, lyrics: lyrics, total_score: game.total, time: game.time}
+        render json: {artist: game.song.artist.name, song_title: game.song.title, lyrics: lyrics, total_score: game.total, time: game.calculate_time}
     end
 
     
