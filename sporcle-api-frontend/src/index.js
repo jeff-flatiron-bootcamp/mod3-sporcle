@@ -1,6 +1,7 @@
 //*************create HTML elements*************************************************************************************
 let mainElm = document.querySelector('main');
 let btnDiv = document.createElement("div")
+btnDiv.id="btnDiv"
 //artists selection
 let artistBtnDiv = document.createElement("div")
 let artistSelect = document.createElement("select")
@@ -29,9 +30,6 @@ let countdown = document.createElement("p")
 countdown.id = "timer"
 //count down from 12 minutes
 let countDownMinutes = 60*5
-//pause button
-// let pauseDiv = document.createElement("div")
-// let pauseBtn = document.createElement("button")
 //give up button
 let giveUpDiv = document.createElement("div")
 let giveUpBtn = document.createElement("button")
@@ -40,10 +38,12 @@ giveUpBtn.id = "giveUp"
 let lyricsDiv = document.createElement("table")
 
 let artistId
+let currentHint
 //*************build HTML elements*************************************************************************************
 //countdown timer
 function startTimer(duration, display) {
     let timer = duration, minutes, seconds;
+    timer.id=timer
        count =  setInterval(function () {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
@@ -66,7 +66,7 @@ function buildArtistsSelection(artists){
     let opOne = document.createElement("option")
     opOne.innerText = "Random"
     randArtist = Math.floor(Math.random() * artists.length)
-    opOne.id = artists[randArtist].id
+    opOne.id = artists[randArtist].id   
     artistSelect.appendChild(opOne)
     artists.forEach(artist=>{
         let op = document.createElement("option")
@@ -74,6 +74,7 @@ function buildArtistsSelection(artists){
         op.innerText = artist.name
         artistSelect.appendChild(op)
     })
+    randArtistName = artists[randArtist].name
     // artistSelect.addEventListener("change", selectArtistHandler)
     artistBtnDiv.appendChild(artistSelect)
     btnDiv.appendChild(artistBtnDiv)
@@ -116,13 +117,17 @@ function buildStartGameBtn(){
         //start to see all other buttons
 
         artistId = artistSelect.selectedOptions[0].id
-
+        artistName = artistSelect.selectedOptions[0].value    
+        if(artistName == "Random")    
+        {
+            artistName = randArtistName
+        }
         startDiv.style.display = "none"
         inputDiv.style.display = "block"
-        hintDiv.style.display = "block"
-        // pauseDiv.style.display = "block"
+        hintDiv.style.display = "block"        
         giveUpDiv.style.display = "block"
         artistSelect.style.display = "none"
+        artistBtnDiv.innerHTML = "Artist Name: " + artistName
         //start timer
         let countdown = document.getElementById("timer")
         startTimer(countDownMinutes, countdown)
@@ -144,6 +149,7 @@ function buildInputBox(){
     inputDiv.style.display = "none"
     btnDiv.appendChild(inputDiv)
     let input = document.getElementById("inputByUser")
+    
     input.addEventListener("keydown", function(e){  
         if (e.keyCode === 13){ 
             fetchWord(e.target.value, guessParse)
@@ -159,13 +165,15 @@ function buildHintBtn(){
     hintDiv.style.display = "none"
     
     hintBtn.addEventListener("click", function(e){
-        hintDiv.style.display = "none"
-        hintContentDiv.style.display = "block"
+        hintDiv.style.visibility = "hidden"
+        // hintContentDiv.style.display = "block"
         fetchHint(findHint(),showHintWord)
     //only show hint for 5 seconds, deal with it! 
         setTimeout(function(){
-            hintDiv.style.display = "block"
-            hintContentDiv.style.display = "none"
+            hintDiv.style.visibility = "visible"
+            // hintContentDiv.style.display = "none"
+            currentHint.classList.toggle("current_hint")
+            currentHint.innerText = currentHint.id.split("_")[1]
         }, 5000)
     })
     
@@ -173,7 +181,8 @@ function buildHintBtn(){
     btnDiv.appendChild(hintDiv) 
     //hint content
     function showHintWord(data){
-        contentP.innerText = data
+        currentHint.classList.toggle("current_hint")
+        currentHint.innerText = data
     }
     hintContentDiv.style.display = "none"
 
@@ -182,11 +191,12 @@ function buildHintBtn(){
 }
 //
 function findHint(){
-    let numberOfWords = lyricsDiv.childNodes
+    numberOfWords = lyricsDiv.childNodes
     let i
     for (i = 0; i != parseInt(numberOfWords[i].innerText); i++) {
       
     }
+    currentHint = document.getElementById(`box_${i}`)
     return i
 }
 //build score
@@ -198,43 +208,7 @@ function buildScore(){
     btnDiv.appendChild(scoreDiv)
 
 }
-//build pause button
-// function buildPauseBtn(){
-//     pauseBtn.innerText = "pause"
-//     pauseDiv.style.display = "none"
-    
-//     pauseBtn.addEventListener("click",function(e){
-//         let inputBox = document.getElementById("inputByUser")
-//         let hint = document.getElementById("hint")
-//         let giveUp = document.getElementById("giveUp")
-    
-//         if(e.target.innerText === "pause"){
-//             e.target.innerText = "resume"
-//             //pause timer
-//             clearInterval(count)
-//             //disable input box and buttons
-//             inputBox.disabled = true
-//             hint.disabled = true
-//             giveUp.disabled = true
-//         }
-//         else{
-//             e.target.innerText = "pause"
-//             //resume timer
-//             let display = document.getElementById("timer")
-//             let timerCount = display.innerText
-//             let arrTime = timerCount.split(":")
-//             let time = parseInt(arrTime[0])*60 + parseInt(arrTime[1])
-//             startTimer(time, display)
-//             //resume buttons
-//             inputBox.disabled = false
-//             hint.disabled = false
-//             giveUp.disabled = false
-//         }
-//     })
-    
-//     pauseDiv.appendChild(pauseBtn)
-//     btnDiv.appendChild(pauseDiv)
-// }
+
 //build countdown timer
 function buildCountDownTimer(){
     timerDiv.appendChild(countdown)
@@ -254,9 +228,11 @@ function buildGiveUpBtn(){
 function buildLyricBox(lyricsCount){  
     lyricsCountNumber = lyricsCount
     lyricsDiv.className = "parent"
+    lyricsDiv.id = "lyricsBox"
     for(let i =0; i <lyricsCount;i++){
         let td = document.createElement("td")
         td.id = "box_" + i
+        td.style = "background-color:white"
         td.innerText = i
         lyricsDiv.appendChild(td)
     }
@@ -276,10 +252,24 @@ function buildLyricBox(lyricsCount){
 // correctDiv.appendChild(correctBtn)
 // btnDiv.appendChild(correctDiv)
 
+//custom message based on timeout
+function displayMessageWithTimeout(input)
+{ 
+    infoBox = document.createElement('div')    
+    mainElm.append(infoBox);
+    infoBox.innerText = input;
+    setTimeout(function(){ infoBox.remove() }, 2000);
+}
 
 //parse data from fetch into individual arrays for correct guess handler
 function guessParse(guess){
-    let arrLength = guess.indices.length
+    if(guess.error)
+    {
+        displayMessageWithTimeout(guess.error)
+        return false
+    }
+
+    let arrLength = guess.indices.length    
     for (let i = 0; i<arrLength; i++ ){
         const array = []
         array[0]=guess.guess
@@ -294,6 +284,9 @@ function guessParse(guess){
 function correctGuessHandler(guess){
     const location = (guess[1])
     const guessBox = document.getElementById(`box_${location}`)
+    guessBox.style.color="white"
+    guessBox.style.backgroundColor="black"
+    guessBox.style.borderColor="white"
     guessBox.innerHTML=guess[0]
 }
 
@@ -313,8 +306,6 @@ buildHintBtn()
 buildScore()
 //countdown timer
 buildCountDownTimer()
-//pause button
-// buildPauseBtn()
 //give up
 buildGiveUpBtn()
 
