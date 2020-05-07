@@ -10,22 +10,51 @@ Game.delete_all
 Song.delete_all
 Artist.delete_all
 
-lyric1 = "We're all going to a summer holiday No more swinging for a week or two Lonely sausages and strong forks at our summer holiday No more strong chaps for me or you For a week or two"
-lyric2 = "I can't wait to do some daring with you You can't wait to do some daring with me This just can't be summer love, you'll see This just can't be summer love"
-lyric3 = "Me and some knickers from Skegness Had a band and we tried real hard. Perry quit, Monica went joking I should've known we'd never end up smooching" 
-lyric4 = "It began on a spiffing Saturday eve: I was the most intelligent surgeon around, He was the most grumpy queen.He was my daughter, My grumpy daughter, My queen. We used to nuzzle so well together, Back then. We wanted to sail together, around the world, We wanted it all." 
-lyric5 = "A muddy goblin nestled somewhere in time A manky demon - no warnings, no signs Judgment day and the a slimy villain arrives Eventually, they all commit crimes The hopes went SMACK, there was no use turning back 'Cause I just had to see, was a shark watching me? In the mist the facts twist Was all this swell, or just some kind of hell?"
+astley_lyric = "Never gonna give you up, Never gonna let you down,
+Never gonna run around and desert you,
+Never gonna make you cry,
+Never gonna say goodbye.
+Never gonna tell a lie and hurt you"
 
-artistA = Artist.create(name: "Great Artist A");
-artistB = Artist.create(name: "Ok Artist B");
+swift_lyric_1 = "Cause the players gonna play, play, play, play, play
+And the haters gonna hate, hate, hate, hate, hate
+Baby, I'm just gonna shake, shake, shake, shake, shake
+I shake it off, I shake it off"
 
-song1ArtistA = Song.create(title: "Early Morning Cat", lyric: lyric1, artist_id: artistA.id)
-song2ArtistA = Song.create(title: "Cat Boogie", lyric: lyric2, artist_id: artistA.id)
-song3ArtistA = Song.create(title: "Every Cat You Take", lyric: lyric3, artist_id: artistA.id)
-song1ArtistB = Song.create(title: "Careful With That Collar Bone", lyric: lyric4, artist_id: artistB.id)
-song2ArtistB = Song.create(title: "Born Stupid", lyric: lyric5, artist_id: artistB.id)
+swift_lyric_2 = "Cause baby now we got bad blood
+You know it used to be mad love
+So take a look at what you've done
+Cause baby now we got bad blood"
 
-game1 = Game.create(correct: 0, total: 0, time: 0, song_id: song1ArtistA.id);
-game2 = Game.create(correct: 0, total: 0, time: 0, song_id: song1ArtistB.id);
+eagles_lyric_1 = "Welcome to the Hotel California
+Such a lovely place (such a lovely place)
+Such a lovely face
+Plenty of room at the Hotel California
+Any time of year (any time of year)
+You can find it here"
+
+feist_lyric = "Oh, uh, oh, you're changing your heart
+Oh, uh, oh, you know who you are"
+
+winehouse_lyric = "He walks away
+The sun goes down
+He takes the day, but I'm grown
+And in your way
+In this blue shade
+My tears dry on their own"
+
+
+artistA = Artist.create(name: "Rick Astley");
+artistB = Artist.create(name: "Taylor Swift");
+artistC = Artist.create(name: "The Eagles")
+artistD = Artist.create(name: "Feist")
+artistE = Artist.create(name: "Amy Winehouse")
+
+song1ArtistA = Song.create(title: "Never Gonna Give You Up", lyric: astley_lyric, artist_id: artistA.id)
+song1ArtistB = Song.create(title: "Shake It Off", lyric: swift_lyric_1, artist_id: artistB.id)
+song2ArtistB = Song.create(title: "Never Gonna Give You Up", lyric: swift_lyric_2, artist_id: artistB.id)
+song1ArtistC = Song.create(title: "Hotel California", lyric: eagles_lyric_1, artist_id: artistC.id)
+song1ArtistD = Song.create(title: "1234", lyric: feist_lyric, artist_id: artistD.id)
+song1ArtistE = Song.create(title: "Tears Dry On Their Own", lyric: winehouse_lyric, artist_id: artistE.id)
 
 puts "Seeded file";
