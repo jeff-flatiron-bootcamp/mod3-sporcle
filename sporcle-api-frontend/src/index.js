@@ -6,9 +6,6 @@
     //artists selection
     let artistBtnDiv = document.createElement("div")
     let artistSelect = document.createElement("select")
-    //song selection
-    // let songBtnDiv = document.createElement("div")
-    // let songSelect = document.createElement("select")
     //start
     let startDiv = document.createElement("div")
     let startGame = document.createElement("button")
@@ -25,11 +22,10 @@
     let score = document.createElement("span")
     let lyricsCountNumber = 0
     //countdown timer
-    //let count
     let timerDiv = document.createElement("div")
     let countdown = document.createElement("p")
     countdown.id = "timer"
-    //count down from 12 minutes
+    //count down from 5 minutes
     let countDownMinutes = 60*5
     //give up button
     let giveUpDiv = document.createElement("div")
@@ -81,36 +77,6 @@
         btnDiv.appendChild(artistBtnDiv)
     }
 
-    // function selectArtistHandler(event){
-    //     debugger
-    //     artistId = event.target.selectedOptions[0].id
-        
-    //     //fetchArtistSongs(artistId, buildSongs)
-    // }
-    //build song
-    // function buildSongs(songs){
-    //     songBtnDiv.innerText = "Select an song:"
-    //     songSelect.className = "songs-select"
-    //     songSelect.innerHTML=''
-    //     let opOne = document.createElement("option")
-    //     opOne.innerText = "Select one ..."
-    //     songSelect.appendChild(opOne)
-    //     songs.forEach(song=>{
-    //         let op = document.createElement("option")
-    //         op.id = song.id
-    //         op.innerText = song.title
-    //         songSelect.appendChild(op)
-    //     })
-    //     songSelect.addEventListener("change",()=>selectSongHandler(songs))
-    //     songBtnDiv.appendChild(songSelect)
-    //     btnDiv.appendChild(songBtnDiv)
-    // }
-
-    // function selectSongHandler(songs){
-    //     let songName = event.target.value
-    //     let songId = event.target.selectedOptions[0].id
-
-    // }
     //build start game button
     function buildStartGameBtn(){
         startGame.innerText = "Start the game"
@@ -167,12 +133,9 @@
         
         hintBtn.addEventListener("click", function(e){
             hintDiv.style.visibility = "hidden"
-            // hintContentDiv.style.display = "block"
             fetchHint(findHint(),showHintWord)
-        //only show hint for 5 seconds, deal with it! 
             setTimeout(function(){
                 hintDiv.style.visibility = "visible"
-                // hintContentDiv.style.display = "none"
                 currentHint.classList.toggle("current_hint")
                 if ((currentHint.innerText == "It's a small word.") || (currentHint.innerText[1] == "*")) {
                     currentHint.innerText = currentHint.id.split("_")[1]
@@ -185,7 +148,8 @@
         //hint content
         function showHintWord(data){
             currentHint.classList.toggle("current_hint")
-            currentHint.innerText = data
+            currentHint.innerText = data.hint
+            scoreDiv.innerText = data.total + "/" + scoreDiv.innerText.split("/")[1]
         }
         hintContentDiv.style.display = "none"
 
@@ -196,7 +160,7 @@
     function findHint(){
         numberOfWords = lyricsDiv.childNodes
         let i
-        for (i = 0; i != parseInt(numberOfWords[i].innerText); i++) {
+        for (i = 0; i != parseInt(numberOfWords[i].innerText - 1); i++) {
         
         }
         currentHint = document.getElementById(`box_${i}`)
@@ -236,24 +200,12 @@
             let td = document.createElement("td")
             td.id = "box_" + i
             td.style = "background-color:white"
-            td.innerText = i
+            td.innerText = i + 1
             lyricsDiv.appendChild(td)
         }
         mainElm.appendChild(lyricsDiv)
         scoreDiv.innerText = `0/${lyricsCount}`
     }
-
-    // // Temporary guess button
-    // let guess = {guess:"you",score: 2, indices: [4, 9, 17, 21, 34] }
-    // let correctDiv = document.createElement("div")
-    // let correctBtn = document.createElement("button")
-    // correctBtn.innerText = "testing"
-    // correctBtn.addEventListener("click", function(event) {
-    //     // console.log(guess.indices)
-    //     guessParse(guess);
-    // })
-    // correctDiv.appendChild(correctBtn)
-    // btnDiv.appendChild(correctDiv)
 
     //custom message based on timeout
     function displayMessageWithTimeout(input)
@@ -321,12 +273,7 @@
         fetchAllLyrics(handleComplete, message)
     }
 
-    // function indexTest(objectJson){
-    //     console.log(objectJson)
-    //    }
-
     btnForm()
-    //fetchLyrics(1)
 
     function handleComplete(completionData, message) {
         // get everything off of the screen
@@ -338,8 +285,6 @@
 
         clearInterval(count)
 
-        mainElm.style = "text-align: center; border: solid;"
-
         completionCard = document.createElement("div")
         completionCard.id = "completionCard"
         
@@ -350,19 +295,21 @@
         scoreP = document.createElement("p")
         timeP = document.createElement("p")
         let nexSongBtn = document.createElement("button")
-        let songYouTube = document.createElement("div")
+
+        let totalLyrics = completionData.lyrics.split(/\n/).map(word => {
+            return word.split(" ")
+        }).flat()
         
         artistP.innerText = "Artist: " + completionData.artist
         songP.innerText = "Song Title: " + completionData.song_title
         lyricsP.innerText = "Lyrics: " + completionData.lyrics
-        scoreP.innerText = "Score: " + completionData.total_score + "/" + completionData.lyrics.split(" ").length
+        scoreP.innerText = "Score: " + completionData.total_score + "/" + totalLyrics.length
         timeP.innerText = "Time Remaining: " + completionData.time
         messageP.innerText = message
         nexSongBtn.innerText = "Next Song"
         nexSongBtn.addEventListener("click", handleNextSong)
 
-        songYouTube.innerHTML=`<iframe width="560" height="315" src=${completionData.url} frameborder="0" allow="accelerometer; allow="autoplay"; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
-        completionCard.append(messageP, artistP, songP, lyricsP, scoreP, timeP,nexSongBtn,songYouTube)
+        completionCard.append(messageP, artistP, songP, lyricsP, scoreP, timeP,nexSongBtn)
         mainElm.appendChild(completionCard)
     }
 
@@ -370,7 +317,7 @@
         let numberOfWords = lyricsDiv.childNodes
         let i 
         for (i = 0; i < numberOfWords.length; i++) {
-            if (numberOfWords[i].innerText == i) {
+            if (numberOfWords[i].innerText == i + 1) {
                 return false;
             }
         }
