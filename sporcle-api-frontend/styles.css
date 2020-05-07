@@ -8,10 +8,13 @@ body {
   padding: 2;
   background-color: black;
   display: grid;
-  background-image: url(‘../images/bg2.jpeg’);
+  background-image: url("../images/bg2.jpeg");
   /* background-image: url(‘../images/Simple-wallpaper-for-desktop-free-download.jpeg’); */
   min-height: 100%;
   min-width:100%;
+  background-attachment: fixed;
+  background-position: left bottom;
+  background-repeat: no-repeat;
 }
 header {
  color: black;
@@ -154,7 +157,7 @@ button.release {
     padding: 15px;
     background-color: grey;
     color: black;
-    background-image: url(‘https://wallpapertag.com/wallpaper/full/7/c/9/131398-most-popular-grey-backgrounds-1920x1200-for-mobile-hd.jpg’);
+    background-image: url("https://wallpapertag.com/wallpaper/full/7/c/9/131398-most-popular-grey-backgrounds-1920x1200-for-mobile-hd.jpg");
     /* background-image: url(‘https://wallpapertag.com/wallpaper/full/0/c/e/131406-best-grey-backgrounds-2560x1600-for-ios.jpg’); */
     /* background-image: url(‘../images/acoustic-wallpaper-8.jpg’); */
     background-repeat: no-repeat;
