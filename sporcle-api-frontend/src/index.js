@@ -338,7 +338,7 @@
 
         clearInterval(count)
 
-        mainElm.style = "text-align: center; border: solid;"
+        // mainElm.style = "text-align: center; border: solid;"
 
         completionCard = document.createElement("div")
         completionCard.id = "completionCard"
@@ -350,20 +350,26 @@
         scoreP = document.createElement("p")
         timeP = document.createElement("p")
         let nexSongBtn = document.createElement("button")
-        let songYouTube = document.createElement("div")
+        // let songYouTube = document.createElement("div")
+        // let youtubeDiv = document.createElement("div")
+        // youtubeDiv.id = "youtubeDiv"
+
+        let totalLyrics = completionData.lyrics.split(/\n/).map(word => {
+            return word.split(" ")
+        }).flat()
         
         artistP.innerText = "Artist: " + completionData.artist
         songP.innerText = "Song Title: " + completionData.song_title
         lyricsP.innerText = "Lyrics: " + completionData.lyrics
-        scoreP.innerText = "Score: " + completionData.total_score + "/" + completionData.lyrics.split(" ").length
+        scoreP.innerText = "Score: " + completionData.total_score + "/" + totalLyrics.length
         timeP.innerText = "Time Remaining: " + completionData.time
         messageP.innerText = message
         nexSongBtn.innerText = "Next Song"
         nexSongBtn.addEventListener("click", handleNextSong)
 
-        songYouTube.innerHTML=`<iframe width="560" height="315" src=${completionData.url} frameborder="0" allow="accelerometer; allow="autoplay"; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
-        completionCard.append(messageP, artistP, songP, lyricsP, scoreP, timeP,nexSongBtn,songYouTube)
+        completionCard.append(messageP, artistP, songP, lyricsP, scoreP, timeP,nexSongBtn)
         mainElm.appendChild(completionCard)
+        // mainElm.appendChild(youtubeDiv)
     }
 
     function gameEnded() {
