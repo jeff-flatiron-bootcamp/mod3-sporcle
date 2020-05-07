@@ -197,7 +197,7 @@
     function findHint(){
         numberOfWords = lyricsDiv.childNodes
         let i
-        for (i = 0; i != parseInt(numberOfWords[i].innerText); i++) {
+        for (i = 0; i != parseInt(numberOfWords[i].innerText - 1); i++) {
         
         }
         currentHint = document.getElementById(`box_${i}`)
@@ -237,7 +237,7 @@
             let td = document.createElement("td")
             td.id = "box_" + i
             td.style = "background-color:white"
-            td.innerText = i
+            td.innerText = i + 1
             lyricsDiv.appendChild(td)
         }
         mainElm.appendChild(lyricsDiv)
@@ -377,7 +377,7 @@
         let numberOfWords = lyricsDiv.childNodes
         let i 
         for (i = 0; i < numberOfWords.length; i++) {
-            if (numberOfWords[i].innerText == i) {
+            if (numberOfWords[i].innerText == i + 1) {
                 return false;
             }
         }
