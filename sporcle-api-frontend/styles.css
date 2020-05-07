@@ -1,12 +1,22 @@
 body {
-    margin: 0;
-    padding: 0;
+    margin: 2;
+    padding: 2;
+    background-color: 	#032e03;
+    display: grid;
+    grid-template-columns: 3;
+    grid-template-rows: 3;
+    /* background-image: url('../images/acoustic-wallpaper-8.jpg'); */
+    background-image: url('../images/Simple-wallpaper-for-desktop-free-download.jpeg');
   }
   
   header {
-    background-color: #4caf50;
+    grid-column: 1 / 4;
+    grid-row: 1;
+    
     margin: 0 auto;
     height: 50px;
+    color:white;
+    background-color: wheat;
   }
   
   header h2 {
@@ -14,14 +24,27 @@ body {
     margin: 0;
   }
   
-  main {
+  main{
+    /* display: grid;
+    grid-template-columns: repeat(4, 1fr); */
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    grid-gap: 20px;
-    padding-top: 10px;
-    padding-bottom: 30px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    
   }
+  
+  #btnDiv{
+    color:white;
+    grid-column: 1/ 1;
+    grid-row: 1 / 3;
+    font-size: 2em;
+    background-color: 032e03;
+  }
+
   
   div.card {
     background-color: #eeeeee;
@@ -45,10 +68,11 @@ body {
   }
   
   button {
-    font-size: .65em;
-    color: #fff;
-    background-color: green;
+    font-size: 1em;
+    color: black;
+    background-color:white;
     border-radius: 10px;
+    
   }
   
   button.release {
@@ -56,6 +80,13 @@ body {
     background-color: #E1332D;
   }
   
+  #timer{
+    font-size: 3em;
+    color: white;
+    padding: 0em;
+    text-align: justify;
+  }
+
   @media only screen and (min-width: 500px) {
     main {
       grid-template-columns: 1fr 1fr;
@@ -72,24 +103,37 @@ body {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+    color: black;
     }
 
+    td {
+    border:3px solid black;
+    padding: 5px;
+    color: black; 
+    }
 
-table{
-  display: flex;
-  flex-direction: row ;
-  flex-wrap:wrap;
-  align-content:stretch;
-  flex-grow: 4;
-  border-collapse:collapse;
-  border:1px solid black;
-  }
+    #lyricsBox{
+      border-radius: 25px;
+      grid-column: 2 / 6;
+      grid-row: 1/3;
+      text-align: center;
+      border:5px solid black;
+      vertical-align: center;
+      padding: 15px;
+      background-color: grey;
+      color: black;
+      background-image: url('https://wallpapertag.com/wallpaper/full/7/c/9/131398-most-popular-grey-backgrounds-1920x1200-for-mobile-hd.jpg'); 
+      /* background-image: url('https://wallpapertag.com/wallpaper/full/0/c/e/131406-best-grey-backgrounds-2560x1600-for-ios.jpg'); */
+      /* background-image: url('../images/acoustic-wallpaper-8.jpg'); */
+      background-repeat: no-repeat; 
+      /* background-attachment: fixed;  */
+      background-size: auto;
+      background
+      }
+
   
-  table td{
-  border:1px solid black;
-  }
 
 
     

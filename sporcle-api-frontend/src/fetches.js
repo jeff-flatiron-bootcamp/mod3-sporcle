@@ -26,12 +26,6 @@ function fetchAllArtists(populateArtists){
     .then(data => populateArtists(data))
 };
 
-function fetchArtistSongs(artistId, populateSongs){    
-    fetch(`${ARTISTS_URL}/${artistId}`)
-    .then(res => res.json())
-    .then(artist => populateSongs(artist.songs))
-};
-
 function fetchHint(hintNumber,callBackFunction) {
     fetch(GAMES_URL + '/hint', {
         method: "POST",
@@ -61,7 +55,7 @@ function fetchWord(word, callBackFunction) {
         })
     })
     .then(res => res.json())
-    .then(json => callBackFunction(json))
+    .then(json => callBackFunction(json))    
 }
 
 function fetchAllLyrics(callBackFunction, message)
