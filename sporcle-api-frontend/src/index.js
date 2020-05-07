@@ -173,7 +173,9 @@ function buildHintBtn(){
             hintDiv.style.visibility = "visible"
             // hintContentDiv.style.display = "none"
             currentHint.classList.toggle("current_hint")
-            currentHint.innerText = currentHint.id.split("_")[1]
+            if ((currentHint.innerText == "It's a small word.") || (currentHint.innerText[1] == "*")) {
+                currentHint.innerText = currentHint.id.split("_")[1]
+            } 
         }, 5000)
     })
     
