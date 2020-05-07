@@ -50,11 +50,11 @@ artistC = Artist.create(name: "The Eagles")
 artistD = Artist.create(name: "Feist")
 artistE = Artist.create(name: "Amy Winehouse")
 
-song1ArtistA = Song.create(title: "Never Gonna Give You Up", lyric: astley_lyric, artist_id: artistA.id)
-song1ArtistB = Song.create(title: "Shake It Off", lyric: swift_lyric_1, artist_id: artistB.id)
-song2ArtistB = Song.create(title: "Never Gonna Give You Up", lyric: swift_lyric_2, artist_id: artistB.id)
-song1ArtistC = Song.create(title: "Hotel California", lyric: eagles_lyric_1, artist_id: artistC.id)
-song1ArtistD = Song.create(title: "1234", lyric: feist_lyric, artist_id: artistD.id)
-song1ArtistE = Song.create(title: "Tears Dry On Their Own", lyric: winehouse_lyric, artist_id: artistE.id)
+song1ArtistA = Song.create(title: "Never Gonna Give You Up", lyric: astley_lyric, artist_id: artistA.id, url:"https://www.youtube.com/embed/oHg5SJYRHA0")
+song1ArtistB = Song.create(title: "Shake It Off", lyric: swift_lyric_1, artist_id: artistB.id,url:"https://www.youtube.com/embed/nfWlot6h_JM")
+song2ArtistB = Song.create(title: "Bad Blood", lyric: swift_lyric_2, artist_id: artistB.id,url:"https://www.youtube.com/embed/QcIy9NiNbmo")
+song1ArtistC = Song.create(title: "Hotel California", lyric: eagles_lyric_1, artist_id: artistC.id,url:"https://www.youtube.com/embed/nY2INMutWxk")
+song1ArtistD = Song.create(title: "1234", lyric: feist_lyric, artist_id: artistD.id,url:"https://www.youtube.com/embed/ABYnqp-bxvg")
+song1ArtistE = Song.create(title: "Tears Dry On Their Own", lyric: winehouse_lyric, artist_id: artistE.id, url:"https://www.youtube.com/embed/ojdbDYahiCQ")
 
 puts "Seeded file";

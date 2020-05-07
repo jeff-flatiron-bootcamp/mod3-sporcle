@@ -349,7 +349,7 @@
         scoreP = document.createElement("p")
         timeP = document.createElement("p")
         let nexSongBtn = document.createElement("button")
-    
+        let songYouTube = document.createElement("div")
         
         artistP.innerText = "Artist: " + completionData.artist
         songP.innerText = "Song Title: " + completionData.song_title
@@ -359,8 +359,9 @@
         messageP.innerText = message
         nexSongBtn.innerText = "Next Song"
         nexSongBtn.addEventListener("click", handleNextSong)
-        completionCard.append(messageP, artistP, songP, lyricsP, scoreP, timeP,nexSongBtn)
 
+        songYouTube.innerHTML=`<iframe width="560" height="315" src=${completionData.url} frameborder="0" allow="accelerometer; allow="autoplay"; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+        completionCard.append(messageP, artistP, songP, lyricsP, scoreP, timeP,nexSongBtn,songYouTube)
         mainElm.appendChild(completionCard)
     }
 
