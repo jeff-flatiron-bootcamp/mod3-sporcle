@@ -1,6 +1,7 @@
 //*************create HTML elements*************************************************************************************
 let mainElm = document.querySelector('main');
 let btnDiv = document.createElement("div")
+btnDiv.id="btnDiv"
 //artists selection
 let artistBtnDiv = document.createElement("div")
 let artistSelect = document.createElement("select")
@@ -41,6 +42,7 @@ let artistId
 //countdown timer
 function startTimer(duration, display) {
     let timer = duration, minutes, seconds;
+    timer.id=timer
        count =  setInterval(function () {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
@@ -221,9 +223,11 @@ function buildGiveUpBtn(){
 function buildLyricBox(lyricsCount){  
     lyricsCountNumber = lyricsCount
     lyricsDiv.className = "parent"
+    lyricsDiv.id = "lyricsBox"
     for(let i =0; i <lyricsCount;i++){
         let td = document.createElement("td")
         td.id = "box_" + i
+        td.style = "background-color:white"
         td.innerText = i
         lyricsDiv.appendChild(td)
     }
@@ -275,6 +279,9 @@ function guessParse(guess){
 function correctGuessHandler(guess){
     const location = (guess[1])
     const guessBox = document.getElementById(`box_${location}`)
+    guessBox.style.color="white"
+    guessBox.style.backgroundColor="black"
+    guessBox.style.borderColor="white"
     guessBox.innerHTML=guess[0]
 }
 
