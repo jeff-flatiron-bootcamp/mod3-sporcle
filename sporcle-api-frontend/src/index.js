@@ -279,6 +279,9 @@ function guessParse(guess){
 function correctGuessHandler(guess){
     const location = (guess[1])
     const guessBox = document.getElementById(`box_${location}`)
+    guessBox.style.color="white"
+    guessBox.style.backgroundColor="black"
+    guessBox.style.borderColor="white"
     guessBox.innerHTML=guess[0]
 }
 
