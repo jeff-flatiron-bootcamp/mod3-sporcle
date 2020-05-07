@@ -63,7 +63,7 @@ function buildArtistsSelection(artists){
     let opOne = document.createElement("option")
     opOne.innerText = "Random"
     randArtist = Math.floor(Math.random() * artists.length)
-    opOne.id = artists[randArtist].id
+    opOne.id = artists[randArtist].id   
     artistSelect.appendChild(opOne)
     artists.forEach(artist=>{
         let op = document.createElement("option")
@@ -71,6 +71,7 @@ function buildArtistsSelection(artists){
         op.innerText = artist.name
         artistSelect.appendChild(op)
     })
+    randArtistName = artists[randArtist].name
     // artistSelect.addEventListener("change", selectArtistHandler)
     artistBtnDiv.appendChild(artistSelect)
     btnDiv.appendChild(artistBtnDiv)
@@ -113,12 +114,17 @@ function buildStartGameBtn(){
         //start to see all other buttons
 
         artistId = artistSelect.selectedOptions[0].id
-
+        artistName = artistSelect.selectedOptions[0].value    
+        if(artistName == "Random")    
+        {
+            artistName = randArtistName
+        }
         startDiv.style.display = "none"
         inputDiv.style.display = "block"
         hintDiv.style.display = "block"        
         giveUpDiv.style.display = "block"
         artistSelect.style.display = "none"
+        artistBtnDiv.innerHTML = "Artist Name: " + artistName
         //start timer
         let countdown = document.getElementById("timer")
         startTimer(countDownMinutes, countdown)
