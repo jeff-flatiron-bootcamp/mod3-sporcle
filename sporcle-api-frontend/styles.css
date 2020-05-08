@@ -72,14 +72,8 @@ color:gray;
 font-weight: bolder;
 font-size: 50px;
 font-stretch: ultra-expanded;
-margin-block-start: 0em;
-margin-block-end: 0em;
 }
 
-p{
-  margin-block-start: 0em;
-margin-block-end: 0em;
-}
 input{
   width: 250px;
   height: 40px;
@@ -127,15 +121,10 @@ li {
   padding-right: 20px;
 }
 button {
-  margin-top:5px;
   font-size: 1em;
   color: black;
   background-color:white;
   border-radius: 10px;
-}
-#scoreDiv{
-  margin-top: 5px;
-  font-size: 1em;
 }
 button.release {
   float: right;
@@ -150,7 +139,6 @@ button.release {
   background-color: transparent;
 }
 #hintDiv{
-  margin-top: 5px;
   color:white;
   outline: thick;
   outline-color: red;
@@ -201,5 +189,4 @@ button.release {
     background-image: url("https://wallpapertag.com/wallpaper/full/7/c/9/131398-most-popular-grey-backgrounds-1920x1200-for-mobile-hd.jpg");
     background-repeat: no-repeat;
     background-size: auto;
-    margin-left: 25px;
     }
