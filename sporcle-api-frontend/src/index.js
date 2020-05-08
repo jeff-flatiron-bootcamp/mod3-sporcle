@@ -19,7 +19,6 @@
     let contentP = document.createElement("p")
     //score
     let scoreDiv = document.createElement("div")
-    scoreDiv.id="scoreDiv"
     let score = document.createElement("span")
     let lyricsCountNumber = 0
     //countdown timer
@@ -95,7 +94,7 @@
             hintDiv.style.display = "block"        
             giveUpDiv.style.display = "block"
             artistSelect.style.display = "none"
-            artistBtnDiv.innerHTML = "" 
+            artistBtnDiv.innerHTML = "Artist Name: " + artistName
             //start timer
             let countdown = document.getElementById("timer")
             startTimer(countDownMinutes, countdown)
@@ -146,7 +145,7 @@
             setTimeout(function(){
                 hintDiv.style.visibility = "visible"
                 currentHint.classList.toggle("current_hint")
-                if ((currentHint.innerText == "Very short word") || (currentHint.innerText[1] == "*")) {
+                if ((currentHint.innerText == "It's a small word.") || (currentHint.innerText[1] == "*")) {
                     currentHint.innerText = currentHint.id.split("_")[1]
                 } 
             }, 5000)
