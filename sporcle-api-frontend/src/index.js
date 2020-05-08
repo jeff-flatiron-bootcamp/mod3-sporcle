@@ -111,7 +111,12 @@
         btnDiv.appendChild(startDiv)
 
     }
-
+    titleDiv=document.createElement('div')
+    titleDiv.id="titleDiv"
+    appTitle=document.createElement('p')
+    appTitle.innerText="Sporcle Distancing"
+    titleDiv.appendChild(appTitle)
+    btnDiv.appendChild(titleDiv)
     //build input box
     function buildInputBox(){
         inputDiv.innerHTML = `
@@ -253,7 +258,7 @@
     //give out song name
     function buildSongTitleHint(){
 
-        songTitle.innerText = "Song Title?"
+        songTitle.innerText = "Song Title Hint"
         songTitle.style.display = "none"
         songTitle.addEventListener("click", function(){
             fetchSongTitle(showSongTitle)
