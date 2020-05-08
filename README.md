@@ -15,21 +15,18 @@
 
 ## Technology Used
 
-Ruby
-SQL
-ActiveRecord
-Javascript
-CSS
+* Ruby
+* SQL
+* ActiveRecord
+* Javascript
+* CSS
 
 ## Authors
 
-Matt Milton - <a href="https://github.com/MattMilton57">GitHub</a>
-
-Cindy Zheng - <a href="https://github.com/dizhengcindy">GitHub</a>
-
-Jeff Simon - <a href="https://github.com/jeff-flatiron-bootcamp">GitHub</a>
-
-John Souza - <a href="https://github.com/jls-github">GitHub</a>
+* Matt Milton - <a href="https://github.com/MattMilton57">GitHub</a>
+* Cindy Zheng - <a href="https://github.com/dizhengcindy">GitHub</a>
+* Jeff Simon - <a href="https://github.com/jeff-flatiron-bootcamp">GitHub</a>
+* John Souza - <a href="https://github.com/jls-github">GitHub</a>
 
 # License 
 
