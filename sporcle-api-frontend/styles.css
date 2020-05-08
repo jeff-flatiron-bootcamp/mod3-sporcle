@@ -4,6 +4,8 @@ html{
   width:100%;
 }
 body {
+  margin: 2;
+  padding: 2;
   background-color: black;
   display: grid;
   background-image: url("../images/bg2.jpeg");
@@ -13,13 +15,12 @@ body {
   background-attachment: fixed;
   background-position: left bottom;
   background-repeat: no-repeat;
-  
 }
 header {
  color: black;
 }
 header h2 {
-  padding: -10;
+  padding: 10px;
   margin: 0;
 }
  main{
@@ -30,14 +31,12 @@ header h2 {
   /* grid-template-columns: 40px 50px auto 50px 40px; */
   /* grid-template-columns: repeat(3, 1fr);  */
   /* grid-template-rows: repeat(3, 1fr);  */
-  /* grid-template-columns: repeat(5, 1fr); */
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(3, 1fr);
   /* grid-gap: 10px; */
   /* grid-auto-rows: minmax(100px, auto); */
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-  padding: 50px;
 }
 /* #btnDiv{
   color:white;
@@ -48,13 +47,11 @@ header h2 {
 } */
 #btnDiv{
   display: flex;
-  flex-direction:row;
-  flex-wrap: wrap;
-  flex-grow: 5;
+  flex-direction:column;
   justify-content:space-evenly;
   color:white;
   grid-column: 1/ 2;
-  grid-row: 1 / -1;
+  grid-row: 1 / 3;
   font-size: 2em;
   background-color: 032e03;
 }
@@ -66,14 +63,6 @@ div.card {
   padding: 10px;
   border-radius: 10px;
 }
-
-#titleDiv{
-color:gray;
-font-weight: bolder;
-font-size: 50px;
-font-stretch: ultra-expanded;
-}
-
 input{
   width: 250px;
   height: 40px;
@@ -154,29 +143,19 @@ button.release {
   }
 } */
 .parent {
-  margin-right: 4em;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   grid-column-gap: 5px;
   grid-row-gap: 5px;
   color: black;
-    table-layout: fixed ;
-  width: 100% ;
   }
   td {
   border:3px solid black;
   padding: 5px;
   color: black;
   }
-  #youtubeDiv {
-    position: absolute;
-    right: 300px;
-    width: 300px;
-    padding: 10px;
-  }
   #lyricsBox{
-    font-size: 2.5vw;
     border-radius: 25px;
     grid-column: 2 / -1;
     grid-row: 1/-1;
@@ -187,6 +166,9 @@ button.release {
     background-color: grey;
     color: black;
     background-image: url("https://wallpapertag.com/wallpaper/full/7/c/9/131398-most-popular-grey-backgrounds-1920x1200-for-mobile-hd.jpg");
+    /* background-image: url(‘https://wallpapertag.com/wallpaper/full/0/c/e/131406-best-grey-backgrounds-2560x1600-for-ios.jpg’); */
+    /* background-image: url(‘../images/acoustic-wallpaper-8.jpg’); */
     background-repeat: no-repeat;
+    /* background-attachment: fixed;  */
     background-size: auto;
     }

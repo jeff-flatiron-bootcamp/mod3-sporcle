@@ -106,14 +106,6 @@
 
     }
 
-        //build title
-        titleDiv=document.createElement('div')
-        titleDiv.id="titleDiv"
-        appTitle=document.createElement('p')
-        appTitle.innerText="Sporcle Distancing"
-        titleDiv.appendChild(appTitle)
-        btnDiv.appendChild(titleDiv)
-
     //build input box
     function buildInputBox(){
         inputDiv.innerHTML = `
