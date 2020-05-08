@@ -13,5 +13,5 @@
 1. Pick an artist!
 2. Guess the lyrics!
 
-
-This project is licensed under the GNU GPL
+# License 
+This project is licensed under the [GNU GPL](https://www.gnu.org/licenses/gpl-3.0.en.html)
