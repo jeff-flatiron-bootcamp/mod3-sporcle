@@ -20,7 +20,13 @@ class GamesController < ApplicationController
             render json: {hint: Game.generate_hint(word), total: game.total}
         end
     end
-    
+    def songTitle
+        decrypted_game_id = Game.decrypt(params[:game_id]);            
+        game = Game.find(decrypted_game_id)
+        song = game.song      
+        game.update(total: (game.total - 2))
+        render json: {song_title: song.title, total: game.total}
+    end
 
     def finish        
         decrypted_game_id = Game.decrypt(params[:game_id]);    

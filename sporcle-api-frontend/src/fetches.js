@@ -59,7 +59,7 @@ function fetchWord(word, callBackFunction) {
     .then(json => callBackFunction(json))    
 }
 
-function fetchAllLyrics(callBackFunction, message)
+function fetchAllLyrics(callBackFunction, message ="")
 {
     fetch(GAMES_URL + `/finish`, {
         method: "POST",
@@ -75,4 +75,22 @@ function fetchAllLyrics(callBackFunction, message)
     .then(json => {
         callBackFunction(json, message)
     })
+}
+
+function fetchSongTitle(callBackFunction){
+    fetch(GAMES_URL + `/songTitle`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        },
+        body: JSON.stringify({
+            game_id: localStorage.getItem("game_id")           
+        })
+    })
+    .then(res => res.json())
+    .then(json => {
+        callBackFunction(json)
+    })
+
 }

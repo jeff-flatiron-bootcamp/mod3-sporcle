@@ -19,6 +19,8 @@
     let contentP = document.createElement("p")
     //score
     let scoreDiv = document.createElement("div")
+    scoreDiv.id="scoreDiv"
+    scoreDiv.style.display = "none"
     let score = document.createElement("span")
     let lyricsCountNumber = 0
     //countdown timer
@@ -33,7 +35,9 @@
     giveUpBtn.id = "giveUp"
     //lyric box
     let lyricsDiv = document.createElement("table")
-
+    //songTitle
+    let songTitleDiv = document.createElement("div")
+    let songTitle = document.createElement("p")
     let artistId
     let currentHint
     //*************build HTML elements*************************************************************************************
@@ -74,7 +78,7 @@
         randArtistName = artists[randArtist].name
         // artistSelect.addEventListener("change", selectArtistHandler)
         artistBtnDiv.appendChild(artistSelect)
-        btnDiv.appendChild(artistBtnDiv)
+       // btnDiv.appendChild(artistBtnDiv)
     }
 
     //build start game button
@@ -94,7 +98,9 @@
             hintDiv.style.display = "block"        
             giveUpDiv.style.display = "block"
             artistSelect.style.display = "none"
-            artistBtnDiv.innerHTML = "Artist Name: " + artistName
+            scoreDiv.style.display = "block"
+            artistBtnDiv.innerHTML = "Artist: "+ artistName
+            songTitle.style.display = "block"
             //start timer
             let countdown = document.getElementById("timer")
             startTimer(countDownMinutes, countdown)
@@ -149,7 +155,7 @@
         function showHintWord(data){
             currentHint.classList.toggle("current_hint")
             currentHint.innerText = data.hint
-            scoreDiv.innerText = data.total + "/" + scoreDiv.innerText.split("/")[1]
+            scoreDiv.innerText = "Score: "+data.total + "/" + scoreDiv.innerText.split("/")[1]
         }
         hintContentDiv.style.display = "none"
 
@@ -204,7 +210,7 @@
             lyricsDiv.appendChild(td)
         }
         mainElm.appendChild(lyricsDiv)
-        scoreDiv.innerText = `0/${lyricsCount}`
+        scoreDiv.innerText = "Score: " +`0/${lyricsCount}`
     }
 
     //custom message based on timeout
@@ -244,7 +250,25 @@
         guessBox.style.borderColor="white"
         guessBox.innerHTML=guess[0]
     }
+    //give out song name
+    function buildSongTitleHint(){
 
+        songTitle.innerText = "Song Title?"
+        songTitle.style.display = "none"
+        songTitle.addEventListener("click", function(){
+            fetchSongTitle(showSongTitle)
+
+        })
+        songTitleDiv.appendChild(songTitle)
+        btnDiv.appendChild(artistBtnDiv)
+        btnDiv.appendChild(songTitleDiv)
+    }
+
+    function showSongTitle(data){
+        songTitle.innerText = "Song: " + data.song_title
+        scoreDiv.innerText = "Score: "+data.total + "/" + scoreDiv.innerText.split("/")[1]
+
+    }
     //*************put all HTML elements together *************************************************************************************
     //call all the build
     function btnForm(){
@@ -252,6 +276,7 @@
     mainElm.appendChild(btnDiv)
     //select artists
     fetchAllArtists(buildArtistsSelection)
+    buildSongTitleHint()
     //start
     buildStartGameBtn()
     //input box
