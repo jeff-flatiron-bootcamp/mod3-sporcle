@@ -19,7 +19,6 @@ class Game < ApplicationRecord
     end
   end
   
-
   def find_guesses(word)    #return indices where it is found - array of numbers - or possibly object with word and indices
     lyrics = self.lower_case_lyrics
     word = word.gsub(/[!@#$%^&*()-=_+|;:",.<>?\s]/, '').downcase
@@ -32,14 +31,6 @@ class Game < ApplicationRecord
     self.update(total: self.total + score)
     return self.total
   end
-
-  # def self.find_next_hint(guess_array) #don't need to use unless we're using sessions to transfer that data
-  #   i = 0
-  #   until guess_array[i] != i do
-  #       i += 1
-  #   end
-  #   return Game.find(session[:game_id]).song.lyrics.split(" ")[i]
-  # end
 
   def self.encrypt(plain_data)
     cipher = OpenSSL::Cipher::AES128.new(:CBC)

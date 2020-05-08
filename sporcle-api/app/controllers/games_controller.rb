@@ -12,11 +12,12 @@ class GamesController < ApplicationController
         decrypted_game_id = Game.decrypt(params[:game_id]);            
         game = Game.find(decrypted_game_id)
         song = game.song      
+        game.update(total: (game.total - 1))
         if game.completion
             render json: {error: "You trying to cheat?"}
         else      
             word = game.lower_case_lyrics[params[:hintNumber]]
-            render json: {hint: Game.generate_hint(word)}
+            render json: {hint: Game.generate_hint(word), total: game.total}
         end
     end
     

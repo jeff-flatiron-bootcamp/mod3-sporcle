@@ -5,7 +5,6 @@ const GAMES_URL = `${BASE_URL}/games`
 
 function fetchLyrics(artistID, callBackFunction) {
     let game_id = localStorage.getItem("game_id");
-    //debugger
     fetch(GAMES_URL, {
         method: "POST",
         headers: {
@@ -41,7 +40,7 @@ function fetchHint(hintNumber,callBackFunction) {
         })
     })
     .then(res => res.json())
-    .then(json => callBackFunction(json.hint))
+    .then(json => callBackFunction(json))
 }
 
 function fetchWord(word, callBackFunction) {
@@ -77,12 +76,3 @@ function fetchAllLyrics(callBackFunction, message)
         callBackFunction(json, message)
     })
 }
-
-
-// For testing sessions
-
-// function practiceFetch() {
-//     fetch(GAMES_URL, {
-//     credentials: "same-origin"
-// })
-// }

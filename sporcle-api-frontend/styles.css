@@ -94,6 +94,14 @@ input{
   border-style: solid;
   height: 50%
 }
+
+#youtubeDiv {
+
+  position: absolute;
+  right: 300px;
+  width: 300px;
+  padding: 10px;
+}
 /* p {
   font-size: 1.5em;
   color: red;
