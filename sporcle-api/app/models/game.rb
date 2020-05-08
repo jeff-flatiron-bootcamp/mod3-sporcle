@@ -7,7 +7,7 @@ class Game < ApplicationRecord
 
   def self.generate_hint(word)
     if word.length < 3
-      hint = "It's a small word."
+      hint = "Very short word"
     else
       i = 1
       hint = word[0]
