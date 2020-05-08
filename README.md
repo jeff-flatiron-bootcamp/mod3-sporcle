@@ -20,6 +20,8 @@
 * ActiveRecord
 * Javascript
 * CSS
+* Rails
+* Open SSL
 
 ## Authors
 
